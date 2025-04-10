@@ -82,10 +82,14 @@ function App() {
       <Switch>
         <Route exact path={URL.ERROR} component={EgovError} />
         <Route>
+          
           <EgovHeader
             loginUser={loginVO}
             onChangeLogin={(user) => setLoginVO(user)}
           ></EgovHeader>
+          
+          
+          
           <VWorldMap>
             <Switch>
             {/* MAIN */}
@@ -180,6 +184,7 @@ function App() {
           </VWorldMap>
           <EgovFooter></EgovFooter>
           <EgovInfoPopup></EgovInfoPopup>
+          
         </Route>
       </Switch>
     </div>
