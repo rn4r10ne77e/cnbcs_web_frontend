@@ -17,9 +17,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,8 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.26.9",
-    "customize-cra": "^1.0.0",
-    "react-app-rewired": "^2.2.1"
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/preset-env": "^7.26.9"
   }
 }

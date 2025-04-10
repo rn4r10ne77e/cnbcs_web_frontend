@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
+import GeonAccordionMenu from "../common/GeonVerticalAccordion";
+import GeonVerticalAccordion from "../common/GeonVerticalAccordion";
 
 function EgovMain(props) {
     console.group("EgovMain");
@@ -104,9 +106,12 @@ function EgovMain(props) {
 
     return (
         <div className="container P_MAIN">
+
             <div className="c_wrap">
+
                 <div className="colbox">
                     <div className="left_col">
+
                         <img src="assets/images/img_simple_main.png" alt="단순 홈페이지 전자정부 표준프레임워크의 경량환경 내부업무에 대한 최신 정보와 기술을 제공하고 있습니다." />
                     </div>
 

@@ -74,6 +74,8 @@ import './css/component.css';
 import './css/page.css';
 import './css/response.css';
 import VWorldMap from "./egov/common/map/VWorldMap";
+import GeonHeader from "./egov/common/GeonHeader";
+import GeonMain from "./egov/main/GeonMain";
 
 function App() {
   const [loginVO, setLoginVO] = useState({});
@@ -83,23 +85,18 @@ function App() {
         <Route exact path={URL.ERROR} component={EgovError} />
         <Route>
           
-          <EgovHeader
-            loginUser={loginVO}
-            onChangeLogin={(user) => setLoginVO(user)}
-          ></EgovHeader>
+          <GeonHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)}></GeonHeader>
           
           
           
           <VWorldMap>
             <Switch>
             {/* MAIN */}
-            <Route exact path={URL.MAIN} component={EgovMain} />
+            <Route exact path={URL.MAIN} component={GeonMain} />
 
             {/* LOGIN */}
             <Route exact path={URL.LOGIN}>
-              <EgovLogin
-                onChangeLogin={(user) => setLoginVO(user)}
-              ></EgovLogin>
+              <EgovLogin onChangeLogin={(user) => setLoginVO(user)} ></EgovLogin>
             </Route>
 
             {/* ERROR */}

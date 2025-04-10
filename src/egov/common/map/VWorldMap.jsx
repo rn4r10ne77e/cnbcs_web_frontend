@@ -31,7 +31,7 @@ const VWorldMap = ({ children }) => {
   }, []);
   
   return (
-    <div style={{ position: 'relative', width: '100%', height: '500px' }}>
+    <div style={{ position: 'relative', width: '100%', height: '1080px' }}>
       <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
       {/* 맵 위에 자식 컴포넌트들 겹쳐서 배치 */}
       <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 10 }}>
