@@ -28,23 +28,24 @@ const GeonVerticalAccordion = () => {
 
     const toggle = (index) => {
         setOpenIndex(prev => (prev === index ? null : index));
+
     };
 
     return (
         <div className="w-64 min-h-screen bg-gray-100 p-4 border-r">
-            <h2 className="text-xl font-bold mb-4">메뉴</h2>
+            {/*<h2 className="text-xl font-bold mb-4">메뉴</h2>*/}
             <ul className="space-y-2">
                 {menuItems.map((item, index) => (
                     <li key={index}>
                         <button
                             onClick={() => toggle(index)}
-                            className="w-full text-left flex justify-between items-center px-3 py-2 bg-white rounded hover:bg-gray-200"
+                            className={`w-full text-left flex justify-between items-center px-3 py-2 bg-white rounded hover:bg-gray-200 ${openIndex === index ? 'on' : ''}`}
                         >
                             {item.title}
                             <span>{openIndex === index ? "▾" : "▸"}</span>
                         </button>
                         {openIndex === index && (
-                            <ul className="mt-1 ml-4 space-y-1">
+                            <ul className="mt-1 ml-4 space-y-1 show">
                                 {item.children.map((child, idx) => (
                                     <li key={idx}>
                                         <a

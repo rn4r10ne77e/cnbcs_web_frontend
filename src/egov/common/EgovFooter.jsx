@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom';
 function EgovFooter() {
     return (
         <div className="footer">
+            <div className="footer_inner">
+                <div className="location_wrap">
+                    <span>copyright(c) 2021 All rights reserved - CHUNGNAM BIS</span>
+                </div>
+            </div>
+        </div>
+        /*<div className="footer">
             <div className="inner">
                 <h1>
                     <Link to="">
@@ -29,7 +36,7 @@ function EgovFooter() {
                     </Link>
                 </div>
             </div>
-        </div>
+        </div>*/
     );
 }
 
