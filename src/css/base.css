@@ -80,3 +80,30 @@ button {cursor: pointer;}
 .mt40 {margin-top: 40px !important;}
 .ml10 {margin-left: 10px !important;}
 .pb10 {padding-bottom: 10px !important;}
+
+input[type="password"], input[type="search"], input[type="text"], input[type="number"] {border: 1px solid #aaa; outline: none; padding: 0 10px; height: 30px; border-radius: 3px;}
+select {
+    position: relative;
+    padding: 0 27px 0 8px;
+    height: 30px;
+    width: auto;
+    line-height: 30px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    color: #555;
+    cursor: pointer;
+    /*background: #fff url('../../assets/images/arrow_drop_down.svg') no-repeat;*/
+    background-position: calc(100% - 2px) 50%;
+    background-repeat: no-repeat;
+    outline: none;
+}
+
+.btn {
+    height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    line-height: 1em;
+    background-color: #fff;
+}
+

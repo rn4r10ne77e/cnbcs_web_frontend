@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
-import GeonAccordionMenu from "../common/GeonVerticalAccordion";
 import GeonVerticalAccordion from "../common/GeonVerticalAccordion";
+import GeonOperationStatus from "../operation/GeonOperationStatus";
 
 function GeonMain(props) {
     console.group("EgovMain");
@@ -19,86 +19,7 @@ function GeonMain(props) {
     const [noticeListTag, setNoticeListTag] = useState();
     const [gallaryListTag, setGallaryListTag] = useState();
 
-    const retrieveList = () => {
-        console.groupCollapsed("EgovMain.retrieveList()");
-
-        const retrieveListURL = '/cmm/main/mainPageAPI.do';
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify()
-        }
-
-        EgovNet.requestFetch(retrieveListURL,
-            requestOptions,
-            (resp) => {
-
-                setNoticeBoard(resp.result.notiList);
-                setGallaryBoard(resp.result.galList);
-
-                let mutNotiListTag = [];
-                mutNotiListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
-
-                // 리스트 항목 구성
-                resp.result.notiList.forEach(function (item, index) {
-                    if (index === 0) mutNotiListTag = []; // 목록 초기화
-                    mutNotiListTag.push(
-                        <li key={index}>
-                            <Link
-                                to={{
-                                    pathname: URL.INFORM_NOTICE_DETAIL,
-                                    state: {
-                                        nttId: item.nttId,
-                                        bbsId: item.bbsId
-                                    }
-                                }}
-                            >
-                                {item.nttSj}
-                                <span>{item.frstRegisterPnttm}</span>
-                            </Link>
-                        </li>
-                    );
-                });
-                setNoticeListTag(mutNotiListTag);
-
-                let mutGallaryListTag = [];
-                mutGallaryListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
-
-                // 리스트 항목 구성
-                resp.result.galList.forEach(function (item, index) {
-                    if (index === 0) mutGallaryListTag = []; // 목록 초기화
-                    mutGallaryListTag.push(
-                        <li key={index}>
-                            <Link
-                                to={{
-                                    pathname: URL.INFORM_GALLERY_DETAIL,
-                                    state: {
-                                        nttId: item.nttId,
-                                        bbsId: item.bbsId
-                                    }
-                                }}
-                            >
-                                {item.nttSj}
-                                <span>{item.frstRegisterPnttm}</span>
-                            </Link>
-                        </li>
-                    );
-                });
-                setGallaryListTag(mutGallaryListTag);
-            },
-            function (resp) {
-                console.log("err response : ", resp);
-            }
-        );
-        console.groupEnd("EgovMain.retrieveList()");
-    }
-
     useEffect(() => {
-        retrieveList();
-        return () => {
-        }
     }, []);
 
     console.log("------------------------------EgovMain [End]");
@@ -109,9 +30,13 @@ function GeonMain(props) {
             <div className="c_wrap">
 
                 <GeonVerticalAccordion></GeonVerticalAccordion>
-
-
-
+                <div className="panel_wrap">
+                    <Route>
+                        <Switch>
+                            <Route exact path={URL.OPERATION_STATUS} component={GeonOperationStatus} />
+                        </Switch>
+                    </Route>
+                </div>
             </div>
         </div>
 

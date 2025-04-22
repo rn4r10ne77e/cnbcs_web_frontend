@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom';
 
 const menuItems = [
     {
         title: "운행관리",
         children: [
-            { title: "운행현황 조회", url: "/cnbus_dev/operation/status.do" },
-            { title: "노선관리", url: "/cnbus_dev/operation/route.do" },
+            { title: "운행현황 조회", url: "/cnbus/operation/status" },
+            { title: "노선관리", url: "/cnbus/operation/route.do" },
         ],
     },
     {
@@ -48,12 +49,16 @@ const GeonVerticalAccordion = () => {
                             <ul className="mt-1 ml-4 space-y-1 show">
                                 {item.children.map((child, idx) => (
                                     <li key={idx}>
-                                        <a
+                                        <Link to={child.url}
+                                              className="block px-3 py-1 text-blue-600 hover:underline">
+                                            {child.title}
+                                        </Link>
+                                        {/*<a
                                             href={child.url}
                                             className="block px-3 py-1 text-blue-600 hover:underline"
                                         >
                                             {child.title}
-                                        </a>
+                                        </a>*/}
                                     </li>
                                 ))}
                             </ul>

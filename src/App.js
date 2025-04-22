@@ -87,12 +87,11 @@ function App() {
           
           <GeonHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)}></GeonHeader>
           
-          
-          
+
           <VWorldMap>
             <Switch>
             {/* MAIN */}
-            <Route exact path={URL.MAIN} component={GeonMain} />
+            <Route path={URL.MAIN} component={GeonMain} />
 
             {/* LOGIN */}
             <Route exact path={URL.LOGIN}>

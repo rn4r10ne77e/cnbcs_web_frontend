@@ -1,7 +1,7 @@
 
 const URL = {
     //COMMON
-    MAIN                        : "/", //메인페이지   
+    MAIN                        : "/", //메인페이지
     
     LOGIN                       : "/login", //로그인
     ERROR                       : "/error", //로그인
@@ -76,6 +76,8 @@ const URL = {
     ADMIN_GALLERY_CREATE        : "/admin/gallery/create", // 사이트관리/사이트갤러리관리 등록
     ADMIN_GALLERY_MODIFY        : "/admin/gallery/modify", // 사이트관리/사이트갤러리관리 수정
     ADMIN_GALLERY_REPLY         : "/admin/gallery/reply", // 사이트관리/사이트갤러리관리 답글 등록
+
+    OPERATION_STATUS               : "/cnbus/operation/status",
     
 }
 
