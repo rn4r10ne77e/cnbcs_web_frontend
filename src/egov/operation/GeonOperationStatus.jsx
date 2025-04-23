@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import OperationSearch from "../search/OperationSearch";
+import EgovPaging  from "../common/EgovPaging";
 
 const item = [
     {admin:"아산시",routeId:"1",routeName:"1"},
@@ -25,6 +26,23 @@ const item = [
 ]
 
 const GeonOperationStatus = () => {
+
+    const [data,setDate] = useState(item);
+    const [currentPage , setCurrentPage] = useState(1);
+    const recordCountPerPage = 5;
+    const pageSize = 5;
+
+    const paginationInfo = {
+        currentPageNo: currentPage,
+        pageSize: pageSize,
+        totalRecordCount: data.length,
+        recordCountPerPage: recordCountPerPage
+    };
+
+    const paginatedData = data.slice(
+        (currentPage - 1) * recordCountPerPage,
+        currentPage * recordCountPerPage
+    );
 
     // 검색 이벤트 핸들러
     const handleSearch = () => {
@@ -60,10 +78,46 @@ const GeonOperationStatus = () => {
         console.log("검색 조건 초기화");
     };
 
+    const handleRowClick = (item) => {
+
+    }
     return (
       <div className="panel">
           <h2 className="tit">운행현황 조회</h2>
            <OperationSearch onSearch={handleSearch} onClear={handleClear}/>
+           <div className="result_wrap">
+               <div className="top">
+                   <span>검색결과<em className="num" id="totalCnt">{data.length}</em>건</span>
+               </div>
+               <table className="tbl_result">
+                   <caption>검색결과</caption>
+                   <colgroup>
+                       <col style={{width: '20%'}}/>
+                       <col style={{width: '40%'}}/>
+                       <col style={{width: '40%'}}/>
+                   </colgroup>
+                   <thead>
+                    <tr>
+                        <th>관할관청</th>
+                        <th>노선ID</th>
+                        <th>노선 명</th>
+                    </tr>
+                   </thead>
+                   <tbody>
+                       {paginatedData.map((item) => (
+                           <tr key={item.routeId}>
+                               <td className="tx-center">{item.admin}</td>
+                               <td className="tx-center">{item.routeId}</td>
+                               <td className="tx-center">{item.routeName}</td>
+                           </tr>
+                       ))}
+                   </tbody>
+               </table>
+           </div>
+          <EgovPaging
+              pagination={paginationInfo}
+              moveToPage={(pageNum) => setCurrentPage(pageNum)}
+          />
       </div>  
     );
 }

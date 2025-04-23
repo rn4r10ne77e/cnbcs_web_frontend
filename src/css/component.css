@@ -42,7 +42,7 @@
 
 .board_bot {margin-top: 40px;}
 
-.paging {text-align: center;}
+.paging {text-align: center; padding: 10px 0 0;}
 .paging .btn {margin-top: 0;}
 .paging .btn + .btn {margin-left: 5px;}
 .paging .btn button {display: inline-block; width: 42px; height: 42px; border: 1px solid #dde2e5; border-radius: 5px; font-size: 0;}
@@ -52,7 +52,7 @@
 .paging .last {background: url(css/images/ico_prev.png) no-repeat center; vertical-align: top; transform: rotate(180deg);}
 .paging ul {display: inline-block; vertical-align: top;}
 .paging ul li {display: inline-block; margin-top: 4px; vertical-align: top;}
-.paging ul li button {display: block; width: 34px; height: 34px; color: #888; font-size: 16px; line-height: 34px; text-align: center; background: white;}
+.paging ul li button {display: block; width: 34px; height: 34px; font-size: 16px; line-height: 34px; text-align: center; background: #f8f8f8;}
 .paging ul li button.cur {border-radius: 50%; color: #fff; background: #222;}
 
 .board_view {border-top: 2px solid #222;}

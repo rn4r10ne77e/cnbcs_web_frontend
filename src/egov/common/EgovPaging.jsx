@@ -60,7 +60,7 @@ function EgovPaging(props) {
             
             // 마지막 페이지 이동
             const lastPageTag = <li key="lp" className="btn">
-                <button onClick={e => {props.moveToPage(totalPageCount)}} className="last"></button></li>;
+                <button onClick={e => {props.moveToPage(totalPageCount)}} className="last">마지막</button></li>;
             paginationTag.push(lastPageTag);
         }
     }
