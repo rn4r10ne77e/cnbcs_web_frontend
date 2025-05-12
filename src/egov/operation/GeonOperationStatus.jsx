@@ -64,7 +64,15 @@ const GeonOperationStatus = () => {
 
         console.log(pageNum)
         /*
-        fetch(`${apiUrl}`)
+        fetch(`${apiUrl}`,{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            }
+            body: JSON.stringify({
+                조회할 데이터...
+            })
+        })
             .then(res => {
                 if(!res.ok) {
                    throw new Error(`호출 실패:  ${res.status}`);

@@ -29,16 +29,37 @@ const GeonOperationDetail = () => {
         console.log(
             `lon:${lon}____ lan:${lan}______id:${id}`
         )
-        if(mapReady){
-            clearMarkers();
-            // 마커 추가
-            addMarker(coords,{
-                properties: {id,type:`bus-route`}
+        // 마커 초기화
+        clearMarkers();
+            /*
+        fetch(`${apiUrl}`,{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            }
+            body: JSON.stringify({
+                조회할 데이터...
             })
-            //이동
-            moveToLocation(coords,16)
-        }
-
+        })
+            .then(res => {
+                if(!res.ok){
+                    throw new Error(`호출 실패 ${res.status}`)
+                }
+            })
+            .then(data => {
+                // 형상정보
+                // 가져온 형상 정보.. 처리..
+            })
+            .catch(error => {
+                console.error(`형상정보 오류 ${error}`)
+            })
+        */
+        // 마커 추가
+        addMarker(coords,{
+            properties: {id,type:`bus-route`}
+        })
+        //이동
+        moveToLocation(coords,16)
     }
 
     useEffect(() => {

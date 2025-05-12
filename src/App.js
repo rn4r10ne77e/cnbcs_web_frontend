@@ -34,16 +34,16 @@ function App() {
         <GeonHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />
 
         <MapProvider>
-        <VWorldMap>
-          <Routes>
-            {/* 메인 경로 설정 - GeonMain과 하위 라우트들 */}
-            <Route path="/" element={<GeonMain />}>
-              {/* GeonMain 내부에 표시될 중첩 라우트들 */}
-              <Route path={URL.OPERATION_STATUS} element={<GeonOperationStatus />} />
-              <Route path={`${URL.OPERATION_STATUS}/:id`} element={<GeonOperationDetail />} />
-            </Route>
-          </Routes>
-        </VWorldMap>
+            <VWorldMap>
+              <Routes>
+                {/* 메인 경로 설정 - GeonMain과 하위 라우트들 */}
+                <Route path="/" element={<GeonMain />}>
+                  {/* GeonMain 내부에 표시될 중첩 라우트들 */}
+                  <Route path={URL.OPERATION_STATUS} element={<GeonOperationStatus />} />
+                  <Route path={`${URL.OPERATION_STATUS}/:id`} element={<GeonOperationDetail />} />
+                </Route>
+              </Routes>
+            </VWorldMap>
         </MapProvider>
         <EgovFooter />
       </div>
