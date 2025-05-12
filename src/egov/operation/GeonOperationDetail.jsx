@@ -1,15 +1,52 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate}  from "react-router-dom";
-import OperationSearch from "../search/OperationSearch";
-import EgovPaging  from "../common/EgovPaging";
+import {useNavigate, useSearchParams,useParams} from "react-router-dom";
+import {useMap} from "../common/map/VWorldContext";
+
 
 
 const GeonOperationDetail = () => {
     const navigate = useNavigate();
+    const {id} = useParams();
+    const [searchParams , setSearchParams] = useSearchParams();
+    const {
+        clearMarkers,
+        moveToLocation,
+        resetMap,
+        addMarker,
+        mapReady
+    } = useMap();
 
     const handleGoBack = () => {
         navigate(-1);
+        resetMap();
     }
+
+    const mapSetting = () => {
+        const lon = parseInt(searchParams.get('lon'));
+        const lan = parseInt(searchParams.get('lat'));
+        const coords = [lon,lan];
+        console.log(
+            `lon:${lon}____ lan:${lan}______id:${id}`
+        )
+        if(mapReady){
+            clearMarkers();
+            // 마커 추가
+            addMarker(coords,{
+                properties: {id,type:`bus-route`}
+            })
+            //이동
+            moveToLocation(coords,15)
+        }
+
+    }
+
+    useEffect(() => {
+        if (mapReady) {
+            mapSetting();
+        }
+        return () => {
+        }
+    },[mapReady]);
 
     return (
       <div className="panel">

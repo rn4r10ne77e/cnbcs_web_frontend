@@ -1,15 +1,25 @@
 // VWorldMap.jsx
 import React, { useEffect, useRef } from 'react';
 import 'ol/ol.css';
-import { Map, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import XYZ from 'ol/source/XYZ';
-import { defaults as defaultControls } from 'ol/control'; // 🔥 이거 추가
+import {useMap } from './VWorldContext'
+
+// import { Map, View } from 'ol';
+// import TileLayer from 'ol/layer/Tile';
+// import XYZ from 'ol/source/XYZ';
+// import { defaults as defaultControls } from 'ol/control'; // 🔥 이거 추가
 
 const VWorldMap = ({ children }) => {
   const mapRef = useRef();
-  
+  const { initializeMap } = useMap();
+
   useEffect(() => {
+    const cleanup = initializeMap(mapRef.current);
+
+    return cleanup;
+  }, []);
+
+
+  /*useEffect(() => {
     const map = new Map({
       target: mapRef.current,
       controls: defaultControls(),
@@ -28,7 +38,7 @@ const VWorldMap = ({ children }) => {
     });
     
     return () => map.setTarget(null);
-  }, []);
+  }, []);*/
   
   return (
       // <div style={{ position: 'relative', width: '100%', height: '1080px' }}>

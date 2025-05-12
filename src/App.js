@@ -24,6 +24,7 @@ import GeonHeader from "./egov/common/GeonHeader";
 import GeonMain from "./egov/main/GeonMain";
 import GeonOperationStatus from "./egov/operation/GeonOperationStatus";
 import GeonOperationDetail from "./egov/operation/GeonOperationDetail";
+import { MapProvider } from './egov/common/map/VWorldContext';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <div className="wrap">
         <GeonHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />
 
+        <MapProvider>
         <VWorldMap>
           <Routes>
             {/* 메인 경로 설정 - GeonMain과 하위 라우트들 */}
@@ -42,7 +44,7 @@ function App() {
             </Route>
           </Routes>
         </VWorldMap>
-
+        </MapProvider>
         <EgovFooter />
       </div>
   );

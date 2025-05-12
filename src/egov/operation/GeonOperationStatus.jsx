@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useNavigate, useSearchParams}  from "react-router-dom";
 import OperationSearch from "../search/OperationSearch";
 import EgovPaging  from "../common/EgovPaging";
+import {useMap} from "../common/map/VWorldContext";
 
 const item = [
     {admin:"아산시",routeId:"1",routeName:"1"},
@@ -16,8 +17,6 @@ const item = [
     {admin:"아산시",routeId:"10",routeName:"10"}
 ]
 
-const test = [];
-
 const GeonOperationStatus = () => {
     const navigate = useNavigate();
 
@@ -26,6 +25,14 @@ const GeonOperationStatus = () => {
     const [searchParams , setSearchParams] = useSearchParams();
     const recordCountPerPage = 5;
     const pageSize = 5;
+
+    const {
+        mapReady,
+        addMarker,
+        clearMarkers,
+        moveToLocation,
+        resetMap
+    } = useMap();
 
     const paginationInfo = {
         currentPageNo: currentPage,
@@ -85,7 +92,24 @@ const GeonOperationStatus = () => {
     };
 
     const handleRowClick = (routeId) => {
-        navigate(`/cnbus/operation/status/${routeId}`);
+        const coords = [127.0046417,36.78710556];
+        navigate(`/cnbus/operation/status/${routeId}?lon=${coords[0]}&lat=${coords[1]}`);
+        // 맵 이동 ?
+
+        // 맵이 활성화 되었는가?
+        /*if(mapReady){
+            // 기존 마커 제거
+            clearMarkers();
+            // 임시
+
+
+            // 마커 추가
+            addMarker(coords,{
+                properties: {routeId,type:`bus-route`}
+            })
+            //이동
+            moveToLocation(coords,15)
+        }*/
     }
 
     const handleMovePage = (pageNum) => {
@@ -110,6 +134,7 @@ const GeonOperationStatus = () => {
             document.getElementById("textSearch").value = searchText;
 
         handleSearch(page)
+        resetMap();
         return () => {
         }
     }, []);
