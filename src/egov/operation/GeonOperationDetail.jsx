@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate, useSearchParams,useParams} from "react-router-dom";
 import {useMap} from "../common/map/VWorldContext";
+import {fromLonLat} from "ol/proj";
 
 
 
@@ -22,8 +23,8 @@ const GeonOperationDetail = () => {
     }
 
     const mapSetting = () => {
-        const lon = parseInt(searchParams.get('lon'));
-        const lan = parseInt(searchParams.get('lat'));
+        const lon = parseFloat(searchParams.get('lon'));
+        const lan = parseFloat(searchParams.get('lat'));
         const coords = [lon,lan];
         console.log(
             `lon:${lon}____ lan:${lan}______id:${id}`
@@ -35,7 +36,7 @@ const GeonOperationDetail = () => {
                 properties: {id,type:`bus-route`}
             })
             //이동
-            moveToLocation(coords,15)
+            moveToLocation(coords,16)
         }
 
     }

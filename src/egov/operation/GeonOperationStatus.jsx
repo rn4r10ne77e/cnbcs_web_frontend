@@ -92,7 +92,8 @@ const GeonOperationStatus = () => {
     };
 
     const handleRowClick = (routeId) => {
-        const coords = [127.0046417,36.78710556];
+        const coords = [127.002592,36.789855];
+
         navigate(`/cnbus/operation/status/${routeId}?lon=${coords[0]}&lat=${coords[1]}`);
         // 맵 이동 ?
 
