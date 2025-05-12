@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {useNavigate, useSearchParams}  from "react-router-dom";
 import OperationSearch from "../search/OperationSearch";
 import EgovPaging  from "../common/EgovPaging";
 
@@ -12,23 +13,17 @@ const item = [
     {admin:"아산시",routeId:"7",routeName:"7"},
     {admin:"아산시",routeId:"8",routeName:"8"},
     {admin:"아산시",routeId:"9",routeName:"9"},
-    {admin:"아산시",routeId:"10",routeName:"10"},
-    {admin:"아산시",routeId:"11",routeName:"11"},
-    {admin:"아산시",routeId:"12",routeName:"12"},
-    {admin:"아산시",routeId:"13",routeName:"13"},
-    {admin:"아산시",routeId:"14",routeName:"14"},
-    {admin:"아산시",routeId:"15",routeName:"15"},
-    {admin:"아산시",routeId:"16",routeName:"16"},
-    {admin:"아산시",routeId:"17",routeName:"17"},
-    {admin:"아산시",routeId:"18",routeName:"18"},
-    {admin:"아산시",routeId:"19",routeName:"19"},
-    {admin:"아산시",routeId:"20",routeName:"20"},
+    {admin:"아산시",routeId:"10",routeName:"10"}
 ]
 
-const GeonOperationStatus = () => {
+const test = [];
 
-    const [data,setDate] = useState(item);
+const GeonOperationStatus = () => {
+    const navigate = useNavigate();
+
+    const [data,setData] = useState([]);
     const [currentPage , setCurrentPage] = useState(1);
+    const [searchParams , setSearchParams] = useSearchParams();
     const recordCountPerPage = 5;
     const pageSize = 5;
 
@@ -45,14 +40,23 @@ const GeonOperationStatus = () => {
     );
 
     // 검색 이벤트 핸들러
-    const handleSearch = () => {
+    const handleSearch = (pageNum = 1) => {
         const adminId = document.getElementById("searchAdminId").value;
         const searchType = document.getElementById("searchType").value;
         const searchText = document.getElementById("textSearch").value;
-        console.log("검색 실행: " , {adminId,searchType,searchText});
+        console.log("검색 실행: " , {adminId,searchType,searchText,pageNum});
 
-        const apiUrl = "/api/test";
+        const newParams = new URLSearchParams();
+        if (adminId) newParams.set('adminId', adminId);
+        if (searchType) newParams.set('searchType', searchType);
+        if (searchText) newParams.set('textSearch', searchText);
+        newParams.set('page',pageNum.toString());
 
+        setCurrentPage(pageNum)
+        setSearchParams(newParams);
+
+        console.log(pageNum)
+        /*
         fetch(`${apiUrl}`)
             .then(res => {
                 if(!res.ok) {
@@ -66,6 +70,8 @@ const GeonOperationStatus = () => {
             .catch(error => {
                 console.log(`검색 중 오류 발생 : ${error} `);
             })
+        */
+        setData(item);
     }
 
     // 초기화 이벤트 핸들러
@@ -78,9 +84,36 @@ const GeonOperationStatus = () => {
         console.log("검색 조건 초기화");
     };
 
-    const handleRowClick = (item) => {
-
+    const handleRowClick = (routeId) => {
+        navigate(`/cnbus/operation/status/${routeId}`);
     }
+
+    const handleMovePage = (pageNum) => {
+        // 페이지가 이동되면 검색을 다시..
+        // setCurrentPage(pageNum);
+         handleSearch(pageNum);
+    }
+
+    useEffect(() => {
+        // URL에서 페이지 정보와 검색 조건 가져오기
+        const page = parseInt(searchParams.get('page') || 1);
+        const adminId = searchParams.get('adminId') || "";
+        const searchType = searchParams.get('searchType') || "ALL";
+        const searchText = searchParams.get('textSearch') || "";
+
+        // 검색 폼 필드 설정 (URL 값으로 초기화)
+        if (document.getElementById("searchAdminId"))
+            document.getElementById("searchAdminId").value = adminId;
+        if (document.getElementById("searchType"))
+            document.getElementById("searchType").value = searchType;
+        if (document.getElementById("textSearch"))
+            document.getElementById("textSearch").value = searchText;
+
+        handleSearch(page)
+        return () => {
+        }
+    }, []);
+
     return (
       <div className="panel">
           <h2 className="tit">운행현황 조회</h2>
@@ -104,19 +137,26 @@ const GeonOperationStatus = () => {
                     </tr>
                    </thead>
                    <tbody>
-                       {paginatedData.map((item) => (
-                           <tr key={item.routeId}>
-                               <td className="tx-center">{item.admin}</td>
-                               <td className="tx-center">{item.routeId}</td>
-                               <td className="tx-center">{item.routeName}</td>
-                           </tr>
-                       ))}
+                   {
+                       paginatedData.length > 0 ? (paginatedData.map((item) => (
+                       <tr
+                           key={item.routeId}
+                           onClick={() => handleRowClick(item.routeId)}>
+                           <td className="tx-center">{item.admin}</td>
+                           <td className="tx-center">{item.routeId}</td>
+                           <td className="tx-center">{item.routeName}</td>
+                       </tr>
+                   ))) :
+                       (<tr>
+                       <td colSpan="3" className="tx-center">조회된 데이터가 없습니다.</td>
+                       </tr>)
+                   }
                    </tbody>
                </table>
            </div>
           <EgovPaging
               pagination={paginationInfo}
-              moveToPage={(pageNum) => setCurrentPage(pageNum)}
+              moveToPage={(pageNum) => handleMovePage(pageNum)}
           />
       </div>  
     );

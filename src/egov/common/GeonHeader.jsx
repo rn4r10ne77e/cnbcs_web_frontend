@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as EgovNet from 'context/egovFetch';
 
@@ -7,9 +7,9 @@ import URL from 'context/url';
 import CODE from 'context/code';
 
 function GeonHeader({ loginUser, onChangeLogin }) {
-    const history = useHistory();
+   // const history = useHistory();
     const logInHandler = () => { // 로그인 정보 없을 시
-        history.push(URL.LOGIN);
+        //history.push(URL.LOGIN);
     }
     const logOutHandler = () => {// 로그인 정보 존재할 때
         const logOutUrl = '/uat/uia/actionLogoutAPI.do';
@@ -22,7 +22,7 @@ function GeonHeader({ loginUser, onChangeLogin }) {
                 if (resp.resultCode == CODE.RCV_SUCCESS) {
                     onChangeLogin({ loginVO: {} });
                     window.alert("로그아웃되었습니다!");
-                    history.push(URL.MAIN);
+                   // history.push(URL.MAIN);
                 }
             }
         );

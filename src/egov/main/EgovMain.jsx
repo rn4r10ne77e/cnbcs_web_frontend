@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
@@ -11,8 +11,8 @@ function EgovMain(props) {
     console.log("[Start] EgovMain ------------------------------");
     console.log("EgovMain [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovMain [history] : ", history);
+   // const history = useHistory();
+   // console.log("EgovMain [history] : ", history);
 
     const [noticeBoard, setNoticeBoard] = useState();
     const [gallaryBoard, setGallaryBoard] = useState();

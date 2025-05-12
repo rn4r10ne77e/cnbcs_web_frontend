@@ -1,14 +1,14 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 
 function EgovError(props) {
-    const history = useHistory();
-    console.log("EgovError [history] : ", history);
+   // const history = useHistory();
+   // console.log("EgovError [history] : ", history);
     
     const errormessage = props.errormessage || "알 수 없는 에러가 발생했습니다.";
 
     const goBack = () => {
-        history.goBack();
+      //  history.goBack();
     }
 
     return (

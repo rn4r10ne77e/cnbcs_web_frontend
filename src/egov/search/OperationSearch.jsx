@@ -58,8 +58,8 @@ const OperationSearch = ({onSearch, onClear}) => {
                        name="textSearch"/>
             </div>
             <div className="sctn_02">
-                <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh" id="btnClear" onClick={onClear}>초기화</button>
-                <button type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch" onClick={onSearch}>검색</button>
+                <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh" id="btnClear" onClick={() => onClear()}>초기화</button>
+                <button type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch" onClick={() => onSearch()}>검색</button>
             </div>
         </div>
     )
