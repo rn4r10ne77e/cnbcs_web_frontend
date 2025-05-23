@@ -12,13 +12,6 @@ function GeonMain(props) {
     console.log("[Start] EgovMain ------------------------------");
     console.log("EgovMain [props] : ", props);
 
-    //const history = useHistory();
-    //console.log("EgovMain [history] : ", history);
-
-    const [noticeBoard, setNoticeBoard] = useState();
-    const [gallaryBoard, setGallaryBoard] = useState();
-    const [noticeListTag, setNoticeListTag] = useState();
-    const [gallaryListTag, setGallaryListTag] = useState();
 
     useEffect(() => {
     }, []);
@@ -36,23 +29,6 @@ function GeonMain(props) {
             </div>
         </div>
     );
-    /*return (
-        <div className="container P_MAIN">
-            <div className="c_wrap">
-
-                <GeonVerticalAccordion></GeonVerticalAccordion>
-                <div className="panel_wrap">
-                    <Route>
-                        <Routes>
-                            <Route exact path={URL.OPERATION_STATUS} component={GeonOperationStatus} />
-                            <Route exact path={`${URL.OPERATION_STATUS}/:id`} component={GeonOperationDetail} />
-                        </Routes>
-                    </Route>
-                </div>
-            </div>
-        </div>
-
-    );*/
 }
 
 export default GeonMain;

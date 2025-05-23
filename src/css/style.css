@@ -1,0 +1,966 @@
+@charset "UTF-8";
+/********** 지도공통 **********/
+.map_container .map_box {
+  width: 100%;
+  height: calc(100vh - 60px);
+// background: url(../images/bg_map.jpg) no-repeat 0 0;
+}
+
+.map_container .top {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.map_container aside {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.map_container aside a {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 18px;
+  border-bottom: 1px solid #555;
+}
+
+.map_container aside .btn_dstnc {
+  height: 30px;
+// background: url(../images/btn_dstnc.png) no-repeat 50% 50%;
+}
+
+.map_container aside a:last-child {
+  border: none;
+}
+
+.map_container aside a:hover {
+  background-color: #ddd;
+}
+
+/* 임시배경(빼기) */
+/********** 통합검색 **********/
+/**** 검색결과 ***/
+/* 검색결과 없을 때 */
+.result_null {
+  /* height: 300px; */
+//  background: url(../images/search_result.svg) no-repeat 50% 50px;
+  background-size: 50px;
+}
+
+.result_null.bg_cursor {
+// background-image: url(../images/selection.svg);
+}
+
+.result_null.no_photo {
+// background-image: url(../images/no_photo.png);
+}
+
+
+.result_null .msg {
+  font-size: 20px;
+  text-align: center;
+  padding-top: 110px;
+  line-height: 1.5;
+  color: #777;
+}
+
+/* 리스트 공통 */
+.note_end {
+  height: 80px;
+  padding-left: 15px;
+  line-height: 80px;
+  background-color: #eee;
+}
+
+.result {
+  max-height: calc(100vh - 277px);
+  overflow-y: auto;
+}
+
+.list_result li {
+  border-bottom: 1px solid #aaa;
+  position: relative;
+}
+
+.list_result li:first-child {
+  border-top: 1px solid #aaa;
+}
+
+.list_result li:hover {
+  background: #f0f8f0;
+}
+
+.list_result li a {
+  display: block;
+  padding: 10px 15px;
+}
+
+/*** 통합검색_노선 리스트(2021.10.12) ***/
+.tbl_route tr {
+  position: relative;
+}
+
+.tbl_route tr a {
+  display: block;
+  padding: 5px 0 5px 10px;
+}
+
+.tbl_route tr .spot {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 20px;
+  height: 30px;
+  line-height: 21px;
+  font-size: 13px;
+// background: url(../images/map_spot_sprite.png) no-repeat 0 0;
+  text-align: center;
+}
+
+.tbl_route tr.active {
+  background-color: #c9eea8;
+}
+
+.tbl_route tr.active .spot {
+  background-position: 0 -30px;
+  color: #fff;
+}
+
+.tbl_route .num {
+  font-weight: 700;
+}
+
+.tbl_route .num:after {
+  content: '';
+  display: inline-block;
+  margin: 0 4px 0 8px;
+  height: 11px;
+  width: 1px;
+  background: #aaa;
+}
+
+.tbl_route .time {
+  margin-top: 3px;
+}
+
+.tbl_route .time span {
+  color: #555;
+}
+
+/*** 통합검색_노선_상세 ***/
+/* 노선 상세정보 */
+.result_detail {
+  max-height: calc(100vh - 242px);
+}
+
+.route_info {
+  padding: 10px 15px;
+  height: 50px;
+}
+
+.route_info .tit_num {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+/* 리스트 (2025.03.26) */
+.tbl_route_detail tr td {
+  padding: 0;
+  position: relative; /* 아이콘 위치 기준 설정 */
+}
+
+.tbl_route_detail tr td a {
+  display: block;
+  padding: 5px 0 0 70px;
+// background: url(../images/bline_01.png) no-repeat 15px 50%;
+  height: 50px;
+  line-height: 50px;
+}
+
+.tbl_route_detail tr td .time {
+  color: #777;
+  margin-top: 4px;
+  letter-spacing: 0.0em;
+}
+
+/* 첫 정류소, 마지막 정류소 배경 위치 조정 */
+.tbl_route_detail tbody tr:first-child a {
+  background-position-y: 15px;
+  position: relative;
+}
+
+.tbl_route_detail tbody tr:last-child a {
+  background-position-y: -85px;
+  position: relative;
+}
+
+/* 기점 아이콘 */
+.tbl_route_detail tbody tr:first-child a:before {
+  content: '기점';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: #003124;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+}
+
+/* 종점 아이콘 */
+.tbl_route_detail tbody tr:last-child a:before {
+  content: '종점';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: #003124;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+}
+
+/* 회차지 아이콘 */
+.tbl_route_detail tbody tr.turning-point a:before {
+  content: '회차지';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: #003124;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+}
+
+
+/*** 패널 ***/
+.input_wrap.period {
+  padding-bottom: 0;
+  line-height: 30px;
+}
+
+.input_wrap.srch_input_wrap .input_search {
+  width: calc(100% - 90px);
+}
+
+/*** 테이블 ***/
+.tbl_result.tbl_chk tr td:first-child, .tbl_chk_last tr td:last-child {
+  text-align: center;
+}
+
+/* .tbl_result {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+} */
+
+.tbl_result td {
+  cursor: pointer;
+}
+
+.tbl_result tr:hover {
+  background-color: #f0f8f0;
+}
+
+.tbl_result tr.active {
+  background-color: #c9eea8!important;
+}
+
+.tbl_result tr.subactive {
+  background-color: #c9eea8;
+}
+
+.tbl_result .chk_wrap label input[type="checkbox"] {
+  margin-right: 0;
+}
+
+/* 사용자등록/수정 테이블 */
+.tbl_input td {
+  background: #f0f8f0;
+}
+
+.tbl_tdh50 th {
+  height: 50px;
+}
+
+.tbl_tdh50 td {
+  height: 50px;
+  padding: 5px 15px;
+}
+
+.tbl_tdh50 select, .tbl_tdh50 input[type="text"] {
+  width: 100%;
+}
+
+.tbl_tdh50 .td_userid input[type="text"] {
+  width: calc(100% - 80px);
+}
+
+.tbl_tdh50 .td_contact input[type="text"] {
+  width: 28%;
+  max-width: 100px;
+}
+
+.tbl_tdh50 .td_contact span {
+  display: inline-block;
+  text-align: center;
+  width: 5%;
+  max-width: 20px;
+}
+
+/* 뎁스2 테이블(테이블 안에 테이블) */
+.include_tbl .scroll_box {
+  height: calc(100vh - 290px);
+  overflow-y: auto;
+}
+
+table .tr_dp2 {
+  position: relative;
+}
+
+table .tr_dp2:hover {
+//  background-color: auto;
+}
+
+table .tr_dp2 > td {
+  padding: 0;
+}
+
+table .tr_dp2_t > td {
+  position: absolute;
+  right: 0;
+  top: -35px;
+  border: 2px solid #777;
+  z-index: 1;
+  overflow-y: auto;
+  width: calc(100% - 24px);
+  max-height: 300px;
+}
+
+table .tr_dp2 table thead th {
+  border-bottom: 1px solid #6eb92b;
+}
+
+.btn_slide_up {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  background: #555;
+  color: #fff;
+}
+
+.btn_slide_up:hover {
+  background: #111;
+}
+
+/* bottom28 */
+.bottom28 + .tr_dp2 > td, .bottom28 + .tr_dp2 .btn_slide_up {
+  bottom: 28px;
+  top: auto;
+}
+
+/*** 팝업 ***/
+.pop_details thead + tbody tr:nth-child(2n) {
+  background-color: #f0f8f0;
+}
+
+/* 부당운행이력조회 팝업 */
+.popup.pop_idhi .tbl_wrap {
+  width: calc(50% - 2px);
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-left: none;
+}
+
+.popup.pop_idhi .tbl_wrap.tbl_001 {
+  width: calc(20% - 7px);
+}
+
+.popup.pop_idhi .tbl_wrap.tbl_002 {
+  width: calc(80% - 7px);
+}
+
+.popup.pop_idhi .tbl_wrap + .tbl_wrap {
+  margin-left: 10px;
+}
+
+.popup.pop_unex {
+  position: relative;
+  -webkit-box-shadow: 1px 1px 10px 1px #999;
+          box-shadow: 1px 1px 10px 1px #999;
+}
+
+.popup .triangle {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: -29px;
+  border-right: 16px solid transparent;
+  border-left: 16px solid transparent;
+  border-top: 28px solid #aaa;
+}
+
+.popup .triangle:after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: 2px;
+  border-right: 16px solid transparent;
+  border-left: 16px solid transparent;
+  border-top: 28px solid #fff;
+}
+
+/* 돌발상황이력 팝업 */
+/*** 지도없는 화면 ***/
+.panel_wrap .content {
+  position: absolute;
+  left: 180px;
+  top: 60px;
+  width: calc(100% - 180px);
+  /* jjkim */
+  min-width: 1400px;
+  height: calc(100vh - 60px);
+  background-color: #fff;
+  z-index: 200; /* byjang */
+}
+
+/*** two_sect ***/
+.two_sect .sect {
+  display: inline-block;
+  height: calc(100vh - 130px);
+  vertical-align: top;
+  border: 1px solid #999;
+  background: #f8f8f8;
+}
+
+.two_sect .sect_01 {
+  width: calc(35% - 10px);
+}
+
+.two_sect .sect_02 {
+  width: calc(65% - 15px);
+  margin-left: 20px;
+}
+
+.two_sect .sect_02 .result_wrap {
+  height: calc(100% - 60px);
+}
+
+.two_sect .sect .scroll_box {
+  /* jjkim 검색필터가 두줄이냐 한줄이냐 높이에 따라 이 영역 높이도 조정됨 */
+  height: calc(100vh - 298px);
+}
+/* 검색필터가 두줄일 때*/
+.panel_wrap .input_wrap.two_select + .tbl_wrap.scroll_box{
+  height: calc(100% - 160px);
+}
+
+.two_sect .sect_02 .scroll_box {
+  height: calc(100% - 104px);
+}
+
+.two_sect .sect .btn_wrap {
+  height: 50px;
+  text-align: right;
+  background: #eee;
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.two_sect.tabcontent .sect {
+  height: calc(100vh - 160px);
+}
+
+.two_sect.tabcontent .scroll_box {
+  height: calc(100vh - 316px);
+}
+
+.two_sect .sect_02 .tabs {
+  background: none;
+  border-bottom: 1px solid #aaa;
+}
+
+.two_sect .sect_02 .tabs .tab {
+  width: 100px;
+}
+
+.two_sect .tabcontents .scroll_box {
+  height: calc(100vh - 290px);
+}
+
+/* tabcontent */
+/* 탭 */
+/* 버스부당운행통계 */
+.ctt_mis .tabs .tab {
+  width: 100px !important;
+}
+
+.ctt_mis .filter {
+  background: #6eb92b;
+  overflow: hidden;
+}
+
+.ctt_mis .filter label {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+  font-family: "Noto Sans KR-M";
+}
+
+.ctt_mis .filter .select_search {
+  width: 150px;
+}
+
+.ctt_mis .period {
+  width: calc(50% - 204px);
+  min-width: 140px;
+}
+
+.ctt_mis.ctt_mis_ .chart_wrap {
+  display: inline-block;
+  width: calc(60% - 7px);
+  height: calc(100vh - 230px);
+  vertical-align: top;
+}
+
+.ctt_mis .chart_wrap .tit_chart {
+  font-size: 22px;
+}
+
+.ctt_mis.ctt_mis_  .tbl_wrap {
+  display: inline-block;
+  width: calc(40% - 7px);
+  vertical-align: top;
+}
+
+.ctt_mis .tbl_wrap.scroll_box {
+  height: calc(100vh - 230px);
+}
+
+.ctt_mis table tr:nth-child(2n) {
+  background-color: #f0f8f0;
+}
+
+/*** 차량단말기관리 ***/
+/* 파일관리 */
+.ctt_device_mngmnt .filter_wrap .filter {
+  width: auto;
+}
+
+.ctt_device_mngmnt .filter_wrap .btn {
+  height: 32px;
+}
+
+.ctt_device_mngmnt .filter_wrap .btn_search {
+  min-width: 62px;
+}
+
+.ctt_device_mngmnt .sect_02 {
+  position: relative;
+}
+
+.ctt_device_mngmnt .sect_02 .td_btn_preview {
+  padding: 2px 0;
+  text-align: center;
+}
+
+.ctt_device_mngmnt .sect_02 .btn_preview {
+  height: 24px;
+  padding: 0 16px;
+}
+
+.ctt_device_mngmnt .sect_02 .btn_send {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+.ctt_device_mngmnt .period {
+  width: calc(50% - 25px);
+}
+
+.ctt_device_mngmnt .btn_ex_dnrd_wrap {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+}
+
+.ctt_device_mngmnt.ctt_record .two_sect.tabcontent .sect_01 .scroll_box {
+  height: calc(100vh - 360px);
+}
+
+.ctt_device_mngmnt.ctt_record .two_sect.tabcontent .sect_02 .scroll_box {
+  ---height: calc(100vh - 226px);
+  height: calc(100vh - 270px); /* byjang : 차량단말기관리 - 이력관리 - 우측 상세리스트 화면 높이 조정 */
+}
+
+/* 차량단말 설정정보관리(2021.12.31)  */
+.ctt_device_setting_mngmnt.two_sect .sect_01 {
+  width: calc(30% - 10px);
+}
+
+.ctt_device_setting_mngmnt.two_sect .sect_02 {
+  width: calc(70% - 20px);
+}
+
+.ctt_device_setting_mngmnt.two_sect .sect_02 .txt_box {
+  display: inline-block;
+  height: 30px;
+  line-height: 29px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ctt_device_setting_mngmnt.two_sect .tab_02 .sect {
+  height: calc(100vh - 210px);
+}
+
+.ctt_device_setting_mngmnt.two_sect .tab_02 .sect.sect_01 {
+  width: 400px;
+}
+
+.ctt_device_setting_mngmnt.two_sect .tab_02 .sect.sect_01 .scroll_box {
+  height: calc(100vh - 332px);
+}
+
+.ctt_device_setting_mngmnt.two_sect .tab_02 .sect.sect_02 {
+  width: calc(100% - 426px);
+}
+
+.ctt_device_setting_mngmnt.two_sect .tab_02 .sect.sect_02 .tbl_wrap {
+  height: calc(100vh - 316px);
+}
+/* 시나리오관리  */
+/* 버튼 포함셀 가운데 정렬  */
+.tabcontents .tab.senario table tr td:last-child, .tabcontents .tab.img table tr td:last-child, .tabcontents .tab.video table tr td:last-child, .tabcontents .tab.news table tr td:last-child, .tabcontents .tab.qestnar table tr td:last-child {
+  text-align: center;
+}
+
+/* 이력관리 */
+/*** 통계관리 ***/
+/* 버스운행통계 */
+.period_wrap_ {
+  width: calc(100% - 156px);
+}
+
+.period_wrap_ .period {
+  width: calc(50% - 50px)!important;
+}
+
+/* 그래프이미지 임시 */
+.chart {
+  text-align: center;
+}
+
+/********** 레이어목록(2021.11.01) **********/
+.panel_wrap .panel .layer_list_wrap .top {
+  background: #eee;
+  height: 50px;
+}
+
+.panel_wrap .panel .layer_list_wrap .top .btn_wrap {
+  line-height: 50px;
+  padding-left: 10px;
+}
+
+.panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align {
+  height: 36px;
+  width: 36px;
+// background: #fff url(../images/align_top.svg) no-repeat 50% 50%;
+  background-size: 26px;
+  border: 1px solid #aaa;
+}
+
+.panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align:hover {
+  background-color: #ddd;
+}
+
+.panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align.btn_align_up {
+// background-image: url(../images/align_up.svg);
+}
+
+.panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align.btn_align_down {
+// background-image: url(../images/align_down.svg);
+}
+
+.panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align.btn_align_bottom {
+//  background-image: url(../images/align_bottom.svg);
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list {
+  height: calc(100vh - 148px);
+  overflow: auto;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list li .layer_line {
+  position: relative;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .dp_last > li > .layer_line:after, .panel_wrap .panel .layer_list_wrap .layer_list .legend > li > .layer_line:after {
+  display: none;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list li {
+  position: relative;
+  line-height: 40px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list li .btn_wrap {
+  position: absolute;
+  right: 6px;
+  top: 0;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list li .btn_wrap .btn_sub_menu {
+  width: 20px;
+  height: 20px;
+// background: url(../images/btn_sub_menu.png) no-repeat 50% 50%;
+  background-size: 17px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list li .layer_line .layer_expand {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  /*background: url(../images/btn_expand_pls.png) no-repeat 50% 50%;*/
+  background-size: 16px;
+  cursor: pointer;
+  vertical-align: text-bottom;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list li .layer_line.on .layer_expand {
+  /*background-image: url(../images/btn_expand_mns.png);*/
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li > .layer_line > .chk_wrap {
+  margin-left: 10px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li > .layer_line .btn_expand {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  /*background: url(../images/btn_expand_more.svg) no-repeat 50% 50%;*/
+  background-size: 14px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li > .layer_line.on .btn_expand {
+  /*background-image: url(../images/btn_expand_less.svg);*/
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li > .layer_line .btn_expand:hover {
+  background-color: #435235;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth2.active, .panel_wrap .panel .layer_list_wrap .layer_list .depth3.active, .panel_wrap .panel .layer_list_wrap .layer_list .depth4.active {
+  display: block;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .dp_last .layer_line.on {
+  background-color: #ddd;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li {
+  background: #617a4a;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li > .layer_line {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth2 {
+  background: #a4dd71;
+  display: none;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth2 > li > .layer_line {
+  line-height: 36px;
+  border-bottom: 1px solid #fff;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth2 > li > .layer_line > .layer_expand {
+  margin-left: 35px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth3 {
+  background: #e0ffc5;
+  display: none;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth3 > li > .layer_line {
+  line-height: 32px;
+  border-bottom: 1px solid #fff;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth3 > li > .layer_line > .layer {
+  cursor: pointer;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth3 > li > .layer_line > .layer_expand {
+  margin-left: 60px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth4 {
+  background: #fff;
+  display: none;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth4 > li > .layer_line {
+  line-height: 28px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth4 > li > .layer_line > .layer {
+  margin-left: 85px;
+  cursor: pointer;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .dp_last {
+  background: #fff;
+  padding: 6px 0;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .dp_last li:hover {
+  background: #f0f0f0;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .legend {
+  background: #fff;
+  padding: 6px 0;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .legend li:hover {
+  background: #f0f0f0;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .legend > li > .layer_line {
+  line-height: 28px !important;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list > li > .legend > li > .layer_line > .layer {
+  margin-left: 25px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth2 > li > .legend > li > .layer_line > .layer {
+  margin-left: 60px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth3 > li > .legend > li > .layer_line > .layer {
+  margin-left: 75px;
+}
+
+.panel_wrap .panel .layer_list_wrap .layer_list .depth4 > li > .legend > li > .layer_line > .layer {
+  margin-left: 90px;
+}
+
+/********** 설문조사(2022.1.21) **********/
+.qestnar_container {
+  padding: 20px;
+  min-width: 360px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+}
+
+.qestnar_container .txt_box {
+  padding: 30px 20px;
+}
+
+.qestnar_container .txt_box .tit {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.qestnar_container .txt_box .msg {
+  color: #555;
+}
+
+.qestnar_container table tbody tr:nth-child(2n-1) {
+  font-weight: 700;
+}
+
+.qestnar_container table tbody tr:nth-child(2n) {
+  height: 60px;
+}
+
+.qestnar_container table tbody tr td input[type="radio"] {
+  margin: 0 4px 0 10px;
+  height: 40px;
+}
+
+.qestnar_container table tbody tr td:first-child {
+  background-color: #f0f8f0;
+}
+
+.qestnar_container table.tbl_tit {
+  margin: 20px 0 4px;
+  background-color: #fff;
+}
+
+.qestnar_container table.tbl_tit tr {
+  text-align: center;
+}
+
+.qestnar_container table.tbl_tit tr td {
+  background-color: #c9eea8 !important;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.qestnar_container .btn_wrap {
+  margin-top: 20px;
+}
+
+.qestnar_container .btn_wrap .btn {
+  width: calc(50% - 7px);
+  height: 40px;
+}
+
+.nonPointer {
+  pointer-events: none;
+}

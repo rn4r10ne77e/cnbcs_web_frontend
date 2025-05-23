@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import URL from 'context/url';
 import CODE from 'context/code';
@@ -24,31 +24,61 @@ import GeonHeader from "./egov/common/GeonHeader";
 import GeonMain from "./egov/main/GeonMain";
 import GeonOperationStatus from "./egov/operation/GeonOperationStatus";
 import GeonOperationDetail from "./egov/operation/GeonOperationDetail";
+import GeonLogin from "./egov/login/GeonLogin";
 import { MapProvider } from './egov/common/map/VWorldContext';
+import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
 
 
-function App() {
-  const [loginVO, setLoginVO] = useState({});
-  return (
-      <div className="wrap">
-        <GeonHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />
 
-        <MapProvider>
-            <VWorldMap>
-              <Routes>
-                {/* 메인 경로 설정 - GeonMain과 하위 라우트들 */}
-                <Route path="/" element={<GeonMain />}>
-                  {/* GeonMain 내부에 표시될 중첩 라우트들 */}
-                  <Route path={URL.OPERATION_STATUS} element={<GeonOperationStatus />} />
-                  <Route path={`${URL.OPERATION_STATUS}/:id`} element={<GeonOperationDetail />} />
-                </Route>
-              </Routes>
-            </VWorldMap>
-        </MapProvider>
-        <EgovFooter />
-      </div>
-  );
+
+
+  function App() {
+    return (
+        <LoginProvider>
+            <Routes>
+                <Route path="/login" element={<LoginPage/>} />
+                <Route path="/" element={<AppLayout/>} />
+            </Routes>
+        </LoginProvider>
+    )
+  }
+
+
+    // 로그인만 따로
+    function LoginPage() {
+        const { isAuthenticated } = useAuth();
+        if (isAuthenticated) return <Navigate to="/" />;
+        return <GeonLogin />;
+    }
+
+
+    function AppLayout() {
+      const { isAuthenticated, loading } = useAuth();
+
+      if(!isAuthenticated){
+          return <Navigate to="/login"/>
+      }
+
+        return (
+            <div className="wrap">
+                <GeonHeader />
+
+                <MapProvider>
+                    <VWorldMap>
+                        <Routes>
+                            <Route path="/" element={<GeonMain />}>
+                                <Route path={URL.OPERATION_STATUS} element={<GeonOperationStatus />} />
+                                <Route path={`${URL.OPERATION_STATUS}/:id`} element={<GeonOperationDetail />} />
+                            </Route>
+                        </Routes>
+                    </VWorldMap>
+                </MapProvider>
+
+                <EgovFooter />
+            </div>
+        );
 }
+
 
 console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 console.log("process.env.REACT_APP_EGOV_CONTEXT_URL", process.env.REACT_APP_EGOV_CONTEXT_URL);
