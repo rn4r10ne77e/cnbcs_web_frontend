@@ -40,10 +40,6 @@ export function LoginProvider({children}) {
     }
 
     const login = (loginVo) => {
-        /*const loginVo = {
-            id : "aaa",
-            password : "444"
-        }*/
 
         const loginUrl = '/uat/uia/actionLoginAPI.do';
         const requestOptions = {

@@ -1247,7 +1247,7 @@ h4.tit {
 .panel_wrap .panel {
   position: absolute;
   left: 180px;
-  top: 60px;
+  top: 0;
   width: 400px;
   height: calc(100vh - 60px);
   background: #f8f8f8;

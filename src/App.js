@@ -37,7 +37,7 @@ import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
         <LoginProvider>
             <Routes>
                 <Route path="/login" element={<LoginPage/>} />
-                <Route path="/" element={<AppLayout/>} />
+                <Route path="/*" element={<AppLayout/>} />
             </Routes>
         </LoginProvider>
     )
@@ -65,10 +65,16 @@ import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
 
                 <MapProvider>
                     <VWorldMap>
-                        <Routes>
+                        {/*<Routes>
                             <Route path="/" element={<GeonMain />}>
                                 <Route path={URL.OPERATION_STATUS} element={<GeonOperationStatus />} />
                                 <Route path={`${URL.OPERATION_STATUS}/:id`} element={<GeonOperationDetail />} />
+                            </Route>
+                        </Routes>*/}
+                        <Routes>
+                            <Route path="/" element={<GeonMain />}>
+                                <Route path="cnbus/operation/status" element={<GeonOperationStatus />} />
+                                <Route path="cnbus/operation/status/:id" element={<GeonOperationDetail />} />
                             </Route>
                         </Routes>
                     </VWorldMap>
