@@ -57,10 +57,7 @@ export function LoginProvider({children}) {
                 console.log("===>>> logout resp= ", resp);
                 if (resp.resultCode == CODE.RCV_SUCCESS) {
                     setLoginVo( resp.resultVO );
-                    window.alert("로그인!! 완료!!");
-
                     console.log("loginVo: " + loginVO)
-
                 }
             }
         );

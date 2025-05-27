@@ -3,7 +3,7 @@
 .map_container .map_box {
   width: 100%;
   height: calc(100vh - 60px);
-// background: url(../images/bg_map.jpg) no-repeat 0 0;
+/*// background: url(../images/bg_map.jpg) no-repeat 0 0;*/
 }
 
 .map_container .top {
@@ -34,7 +34,7 @@
 
 .map_container aside .btn_dstnc {
   height: 30px;
-// background: url(../images/btn_dstnc.png) no-repeat 50% 50%;
+/*// background: url(../images/btn_dstnc.png) no-repeat 50% 50%;*/
 }
 
 .map_container aside a:last-child {
@@ -51,16 +51,16 @@
 /* 검색결과 없을 때 */
 .result_null {
   /* height: 300px; */
-//  background: url(../images/search_result.svg) no-repeat 50% 50px;
+/*//  background: url(../images/search_result.svg) no-repeat 50% 50px;*/
   background-size: 50px;
 }
 
 .result_null.bg_cursor {
-// background-image: url(../images/selection.svg);
+/*// background-image: url(../images/selection.svg);*/
 }
 
 .result_null.no_photo {
-// background-image: url(../images/no_photo.png);
+/*// background-image: url(../images/no_photo.png);*/
 }
 
 
@@ -123,7 +123,7 @@
   height: 30px;
   line-height: 21px;
   font-size: 13px;
-// background: url(../images/map_spot_sprite.png) no-repeat 0 0;
+/*// background: url(../images/map_spot_sprite.png) no-repeat 0 0;*/
   text-align: center;
 }
 
@@ -184,7 +184,7 @@
 .tbl_route_detail tr td a {
   display: block;
   padding: 5px 0 0 70px;
-// background: url(../images/bline_01.png) no-repeat 15px 50%;
+/*// background: url(../images/bline_01.png) no-repeat 15px 50%;*/
   height: 50px;
   line-height: 50px;
 }
@@ -346,7 +346,7 @@ table .tr_dp2 {
 }
 
 table .tr_dp2:hover {
-//  background-color: auto;
+/*//  background-color: auto;*/
 }
 
 table .tr_dp2 > td {
@@ -452,10 +452,12 @@ table .tr_dp2 table thead th {
 .panel_wrap .content {
   position: absolute;
   left: 180px;
-  top: 60px;
+  /*top: 60px;*/
+  top:0;
   width: calc(100% - 180px);
   /* jjkim */
-  min-width: 1400px;
+  /*min-width: 1400px;*/
+  min-width:1739px;
   height: calc(100vh - 60px);
   background-color: #fff;
   z-index: 200; /* byjang */
@@ -703,7 +705,7 @@ table .tr_dp2 table thead th {
 .panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align {
   height: 36px;
   width: 36px;
-// background: #fff url(../images/align_top.svg) no-repeat 50% 50%;
+/*// background: #fff url(../images/align_top.svg) no-repeat 50% 50%;*/
   background-size: 26px;
   border: 1px solid #aaa;
 }
@@ -713,15 +715,15 @@ table .tr_dp2 table thead th {
 }
 
 .panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align.btn_align_up {
-// background-image: url(../images/align_up.svg);
+/*// background-image: url(../images/align_up.svg);*/
 }
 
 .panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align.btn_align_down {
-// background-image: url(../images/align_down.svg);
+/*// background-image: url(../images/align_down.svg);*/
 }
 
 .panel_wrap .panel .layer_list_wrap .top .btn_wrap .btn_align.btn_align_bottom {
-//  background-image: url(../images/align_bottom.svg);
+/*//  background-image: url(../images/align_bottom.svg);*/
 }
 
 .panel_wrap .panel .layer_list_wrap .layer_list {
@@ -756,7 +758,7 @@ table .tr_dp2 table thead th {
 .panel_wrap .panel .layer_list_wrap .layer_list li .btn_wrap .btn_sub_menu {
   width: 20px;
   height: 20px;
-// background: url(../images/btn_sub_menu.png) no-repeat 50% 50%;
+/*// background: url(../images/btn_sub_menu.png) no-repeat 50% 50%;*/
   background-size: 17px;
 }
 

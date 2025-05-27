@@ -19,12 +19,14 @@ import './css/layout.css';
 import './css/component.css';
 import './css/page.css';
 import './css/response.css';
+import './css/style.css';
 import VWorldMap from "./egov/common/map/VWorldMap";
 import GeonHeader from "./egov/common/GeonHeader";
 import GeonMain from "./egov/main/GeonMain";
 import GeonOperationStatus from "./egov/operation/GeonOperationStatus";
 import GeonOperationDetail from "./egov/operation/GeonOperationDetail";
 import GeonLogin from "./egov/login/GeonLogin";
+import GeonUserList from "./egov/admin/user/GeonUserList";
 import { MapProvider } from './egov/common/map/VWorldContext';
 import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
 
@@ -65,16 +67,11 @@ import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
 
                 <MapProvider>
                     <VWorldMap>
-                        {/*<Routes>
-                            <Route path="/" element={<GeonMain />}>
-                                <Route path={URL.OPERATION_STATUS} element={<GeonOperationStatus />} />
-                                <Route path={`${URL.OPERATION_STATUS}/:id`} element={<GeonOperationDetail />} />
-                            </Route>
-                        </Routes>*/}
                         <Routes>
                             <Route path="/" element={<GeonMain />}>
-                                <Route path="cnbus/operation/status" element={<GeonOperationStatus />} />
-                                <Route path="cnbus/operation/status/:id" element={<GeonOperationDetail />} />
+                                <Route path="/operation/status" element={<GeonOperationStatus />} />
+                                <Route path="/operation/status/:id" element={<GeonOperationDetail />} />
+                                <Route path="/admin/userList" element={<GeonUserList/>}/>
                             </Route>
                         </Routes>
                     </VWorldMap>

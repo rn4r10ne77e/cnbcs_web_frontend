@@ -3,10 +3,16 @@ import {Link} from 'react-router-dom';
 
 const menuItems = [
     {
+        title: "시스템정보관리",
+        children: [
+            { title: "사용자 관리", url: "/admin/userList" },
+        ]
+    },
+    {
         title: "운행관리",
         children: [
-            { title: "운행현황 조회", url: "/cnbus/operation/status" },
-            { title: "노선관리", url: "/cnbus/operation/route.do" },
+            { title: "운행현황 조회", url: "/operation/status" },
+            { title: "노선관리", url: "/operation/route.do" },
         ],
     },
     {
