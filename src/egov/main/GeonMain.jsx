@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {Route,  Routes ,Outlet} from 'react-router-dom';
+import React, {useEffect } from 'react';
+import {Outlet} from 'react-router-dom';
 
-import * as EgovNet from 'context/egovFetch';
-import URL from 'context/url';
 import GeonVerticalAccordion from "../common/GeonVerticalAccordion";
-import GeonOperationStatus from "../operation/GeonOperationStatus";
-import GeonOperationDetail from "../operation/GeonOperationDetail";
+
 
 function GeonMain(props) {
     console.group("EgovMain");

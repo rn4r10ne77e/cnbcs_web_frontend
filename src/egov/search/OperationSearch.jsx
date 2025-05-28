@@ -1,5 +1,5 @@
-import React  from "react";
-//import {useAdminList} from "./useAdminList";
+import React, {forwardRef, useImperativeHandle} from "react";
+import {useRef} from "react";
 
 const adminItem = [
     { key: "", value: "관할관청 전체" },
@@ -27,9 +27,38 @@ const searchTypeItem = [
     {key:"PLATE_NO" , value:"차량번호"}
 ]
 
-const OperationSearch = ({onSearch, onClear}) => {
+const OperationSearch = forwardRef(({onSearch},ref) => {
 
     //const adminList = useAdminList();
+    const adminRef = useRef();
+    const typeRef = useRef();
+    const textRef = useRef();
+
+    useImperativeHandle(ref, () => ({
+       getValues: () => {
+           return {
+               adminId:adminRef.current?.value,
+               searchType:typeRef.current?.value,
+               searchText:textRef.current?.value
+            };
+        },
+        setValues: (values) => {
+            adminRef.current.value = values.adminId ?? '';
+            typeRef.current.value = values.searchType ?? '';
+            textRef.current.value = values.searchText ?? '';
+        },
+        clear : () => {
+            adminRef.current.value = ''
+            typeRef.current.value =  'ALL'
+            textRef.current.value = '';
+        }
+    }));
+
+    const paramClear = () => {
+        adminRef.current.value = ''
+        typeRef.current.value =  'ALL'
+        textRef.current.value = '';
+    }
 
     return (
         <div className="input_wrap two_select">
@@ -37,7 +66,7 @@ const OperationSearch = ({onSearch, onClear}) => {
                 <div className="select_wrap">
 
                     <label htmlFor="searchAdminId" className="hidden"></label>
-                    <select className="select_search" name="searchAdminId" id="searchAdminId">
+                    <select className="select_search" name="searchAdminId" id="searchAdminId" ref={adminRef}>
                         {adminItem.map(item => (
                             <option key={item.key} value={item.key}>
                                 {item.value}
@@ -45,7 +74,7 @@ const OperationSearch = ({onSearch, onClear}) => {
                         ))}
                     </select>
                     <label htmlFor="searchType" className="hidden"></label>
-                    <select className="select_search" name="searchType" id="searchType">
+                    <select className="select_search" name="searchType" id="searchType" ref={typeRef}>
                         {searchTypeItem.map(item => (
                             <option key={item.key} value={item.key}>
                                 {item.value}
@@ -54,15 +83,15 @@ const OperationSearch = ({onSearch, onClear}) => {
                     </select>
                 </div>
                 <label htmlFor="textSearch" className="hidden"></label>
-                <input type="text" className="input_search" placeholder="검색어를 입력하세요." id="textSearch"
+                <input type="text" className="input_search" placeholder="검색어를 입력하세요." id="textSearch" ref={textRef}
                        name="textSearch"/>
             </div>
             <div className="sctn_02">
-                <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh" id="btnClear" onClick={() => onClear()}>초기화</button>
+                <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh" id="btnClear" onClick={() => paramClear()}>초기화</button>
                 <button type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch" onClick={() => onSearch()}>검색</button>
             </div>
         </div>
     )
-}
+})
 
 export default OperationSearch;

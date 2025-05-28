@@ -23,7 +23,7 @@ import './css/style.css';
 import VWorldMap from "./egov/common/map/VWorldMap";
 import GeonHeader from "./egov/common/GeonHeader";
 import GeonMain from "./egov/main/GeonMain";
-import GeonOperationStatus from "./egov/operation/GeonOperationStatus";
+import GeonOperationStatus from "./egov/operation/GeonOpertaionStatus";
 import GeonOperationDetail from "./egov/operation/GeonOperationDetail";
 import GeonLogin from "./egov/login/GeonLogin";
 import GeonUserList from "./egov/admin/user/GeonUserList";
