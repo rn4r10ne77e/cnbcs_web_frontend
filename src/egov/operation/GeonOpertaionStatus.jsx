@@ -2,7 +2,10 @@ import React, {useState, useEffect,useRef} from "react";
 import {useNavigate, useSearchParams}  from "react-router-dom";
 import OperationSearch from "../search/OperationSearch";
 import GeonTable from "../common/GeonTable";
+import {DotLoader} from "../common/loading/DotLoader";
 import {useMap} from "../common/map/VWorldContext";
+import * as EgovNet from 'context/egovFetch';
+import CODE from "../../context/code";
 
 
 const mockData =[
@@ -19,7 +22,6 @@ const mockData =[
 ]
 
 const GeonOperationStatus2 = () => {
-
     const navigate = useNavigate();
     const [data,setData] = useState([])
     const [currentPage , setCurrentPage] = useState(1);
@@ -33,39 +35,68 @@ const GeonOperationStatus2 = () => {
     const paginationInfo = {
         currentPageNo: currentPage,
         pageSize: pageSize,
-        totalRecordCount: data.length,
+        // totalRecordCount: data.length,
+        totalRecordCount: 10, //임시
         recordCountPerPage: recordCountPerPage
     };
 
-    const paginatedData = data.slice(
-        (currentPage - 1) * recordCountPerPage,
-        currentPage * recordCountPerPage
-    );
-
     const handelPageChange = (page =1) => {
         const values = searchRef.current?.getValues();
-
         handleSearch(values,page);
     }
 
     const handleSearch = (param, pageNum = 1) => {
-        /*const {adminId , searchType , searchText} = param;*/
-        console.log(param);
-        // 검색조건 값을 URL에 지정하기 위한 작업
-        const newParam = new URLSearchParams();
-        Object.entries({...param,page:pageNum}).forEach(([key,value]) => {
-            newParam.set(key,value.toString())
-        })
-        // 페이지 숫자 지정
-        setCurrentPage(pageNum);
+        setLoading(true);
 
-        //현재 URL 쿼리 저장
-        setSearchParam(newParam);
+        try{
+            // param이  null 또는 undefinded 일때 ?? 뒤에 값을 불러옴
+            const searchValues = param ?? searchRef.current.getValues();
 
-        // 데이터 불러오기...
-        setTimeout(() => {
-            setData(mockData);
-        },300)
+            // 검색조건 값을 URL에 지정하기 위한 작업
+            const newParam = new URLSearchParams();
+            Object.entries({...searchValues,page:pageNum}).forEach(([key,value]) => {
+                newParam.set(key,value.toString())
+            })
+            // 페이지 숫자 지정
+            setCurrentPage(pageNum);
+
+            //현재 URL 쿼리 저장
+            setSearchParam(newParam);
+            // 임시.. 페이지네이션...
+            const paginatedData = mockData.slice(
+                (pageNum - 1) * recordCountPerPage,
+                pageNum * recordCountPerPage
+            );
+
+            /*const requestOptions = {
+                method:"POST",
+                header : {'Content-type' : 'application//json'},
+                body : JSON.stringify(searchValues)
+            }
+
+            EgovNet.requestFetch('/api/...',
+                requestOptions,
+                function(resp) {
+                    if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                        setData(resp.result.data);
+                        setLoading(false)
+                    }
+                }
+            );*/
+
+
+
+            // 데이터 불러오기... (임시..)
+            setTimeout(() => {
+                setData(paginatedData);
+                setLoading(false);
+            },300)
+
+        }catch (error) {
+            console.log(error)
+            setLoading(false);
+        }
+
     }
 
     const handleRowClick = (item) => {
@@ -112,14 +143,16 @@ const GeonOperationStatus2 = () => {
             {title:"노선명",key:"routeName"}
         ],
         data : data,
+        dataSize : 10,
         paginationInfo : paginationInfo
     }
 
     return (
         <div className="panel">
-                <h2 className="운행현황 조회"/>
+            {loading && <DotLoader />}
+            <h2 className="tit">운행현황 조회</h2>
             <OperationSearch onSearch={handleSearch} ref={searchRef}/>
-            <GeonTable option={options} rowClick={handleRowClick} handelPageChange={handelPageChange} />
+            <GeonTable option={options} rowClick={handleRowClick} handelPageChange={handelPageChange}/>
         </div>
     )
 

@@ -4,13 +4,13 @@ import React from "react";
 
 const GeonTable = ({option, rowClick ,handelPageChange}) => {
 
-    const {header , data, paginationInfo} = option;
+    const {header , data, dataSize, paginationInfo} = option;
 
     return (
         <>
             <div className="result_wrap">
                 <div className="top">
-                    <span>검색결과 <em className="num">{data.length}</em>건</span>
+                    <span>검색결과 <em className="num">{dataSize}</em>건</span>
                 </div>
 
                 <table className="tbl_result">

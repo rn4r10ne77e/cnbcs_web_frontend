@@ -69,9 +69,9 @@ import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
                     <VWorldMap>
                         <Routes>
                             <Route path="/" element={<GeonMain />}>
-                                <Route path="/operation/status" element={<GeonOperationStatus />} />
-                                <Route path="/operation/status/:id" element={<GeonOperationDetail />} />
-                                <Route path="/admin/userList" element={<GeonUserList/>}/>
+                                <Route path="operation/status" element={<GeonOperationStatus />} />
+                                <Route path="operation/status/:id" element={<GeonOperationDetail />} />
+                                <Route path="admin/userList" element={<GeonUserList/>}/>
                             </Route>
                         </Routes>
                     </VWorldMap>
