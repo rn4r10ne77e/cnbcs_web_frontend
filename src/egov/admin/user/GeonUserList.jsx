@@ -1,8 +1,10 @@
 import {useEffect, useRef, useState} from 'react'
 import {useSearchParams} from "react-router-dom";
+import DynamicSearch  from "../../search/DynamicSearch";
+import GeonTable from "../../common/GeonTable"
 
 // 테스트용
-const item = [
+const mockData = [
     {
         no:"아산시",
         userId:"sys_admin",
@@ -13,12 +15,13 @@ const item = [
 ]
 
 const GeonUserList = () => {
-    const [data , setDate] = useState([]);
+    const [data , setData] = useState([]);
     const [currentPage , setCurrentPage] = useState(1);
     const [searchParams , setSearchParams] = useSearchParams();
     const recordCountPerPage = 5;
     const pageSize = 5;
     const searchRef = useRef();
+    const [loading , setLoading] = useState(false);
 
     const paginationInfo = {
         currentPageNo: currentPage,
@@ -32,46 +35,80 @@ const GeonUserList = () => {
         currentPage * recordCountPerPage
     );
 
-    return (
+    // key = id , label : 명칭 , type : input type , apiUrl : 서버에서 가져와야하는 api 주소
+    const menuConfigs = {
+        user : [
+            {key :"userId",label:"사용자ID",type:"text"},
+            {key:"userName", label: "사용자명",type:"text"},
+            {key:"role", label:"권한",type:"select",apiUrl:'/api'}
+        ]
+    }
+
+    const options = {
+        header : [
+            {title:"관할관청",key:"admin"},
+            {title:"노선ID",key:"routeId"},
+            {title:"노선명",key:"routeName"}
+        ],
+        data : data,
+        dataSize : 10,
+        paginationInfo : paginationInfo
+    }
+
+    const handleSearch = (param , pageNum = 1) => {
+        setLoading(true);
+
+        try{
+            //const searchValues = param ?? searchRef.current
+            const newParam = new URLSearchParams();
+            Object.entries({...param,page:pageNum}).forEach(([key,value]) => {
+                newParam.set(key,value.toString())
+            })
+
+            setCurrentPage(pageNum);
+            setSearchParams(newParam);
+
+            // 임시 페이지 네이션...
+            const paginatedData = mockData.slice(
+                (pageNum - 1) * recordCountPerPage,
+                pageNum * recordCountPerPage
+            );
+
+            // 데이터 불러오기... (임시..)
+            setTimeout(() => {
+                setData(paginatedData);
+                setLoading(false);
+            },300)
+
+
+            /*const requestOptions = {
+              method:"POST",
+              header : {'Content-type' : 'application/json'},
+              body : JSON.stringify(searchValues)
+          }
+
+          EgovNet.requestFetch('/api/...',
+              requestOptions,
+              function(resp) {
+                  if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                      setData(resp.result.data);
+                      setLoading(false)
+                  }
+              }
+          );*/
+
+        }catch (error){
+            console.error(`search error :  ${error}`)
+            setLoading(false);
+        }
+
+    }
+
+     return (
             <>
                 <div className="content p020">
                     <h2 className="tit">사용자 관리</h2>
-                    <div className="wp100">
-                        {/*<div className="filter_wrap p020">
-                            <div className="filter">
-                                <div className="input_wrap three line_01">
-                                    <div className="ml20 input_group">
-                                        <label htmlFor="USER_ID">사용자 ID</label>
-                                        <input type="text" title="ID" id="USER_ID" name="USER_ID"/>
-                                    </div>
-                                    <div className="ml20 input_group">
-                                        <label htmlFor="USER_NM">사용자 명</label>
-                                        <input type="text" title="이름" id="USER_NM" name="USER_NM"/>
-                                    </div>
-                                    <div className="ml20 input_group">
-                                        <label htmlFor="AUTHOR_CD">권한</label>
-                                        <select name="AUTHOR_CD" id="AUTHOR_CD" name="AUTHOR_CD">
-                                            <option value="">권한 전체</option>
-                                            <option value="ROLE001">운영자</option>
-                                            <option value="ROLE000">시스템 관리자</option>
-                                            <option value="ROLE002">도청</option>
-                                            <option value="ROLE004">일반</option>
-                                            <option value="ROLE003">시군</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="btn_wrap">
-                                <button type="button" title="검색하기" className="btn btn_search xi-search"
-                                        id="btnSearch">검색
-                                </button>
-                                <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh ml10"
-                                        id="btnClear">초기화
-                                </button>
-                            </div>
-                        </div>*/}
-                    </div>
+                    <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch}/>
                 </div>
             </>
     )

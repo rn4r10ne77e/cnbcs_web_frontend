@@ -70,7 +70,7 @@ const GeonOperationStatus2 = () => {
 
             /*const requestOptions = {
                 method:"POST",
-                header : {'Content-type' : 'application//json'},
+                header : {'Content-type' : 'application/json'},
                 body : JSON.stringify(searchValues)
             }
 
