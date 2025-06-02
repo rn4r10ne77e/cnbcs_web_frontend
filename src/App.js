@@ -20,6 +20,7 @@ import './css/component.css';
 import './css/page.css';
 import './css/response.css';
 import './css/style.css';
+import './css/common.css';
 import VWorldMap from "./egov/common/map/VWorldMap";
 import GeonHeader from "./egov/common/GeonHeader";
 import GeonMain from "./egov/main/GeonMain";

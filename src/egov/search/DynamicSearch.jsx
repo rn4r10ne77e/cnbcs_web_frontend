@@ -1,19 +1,42 @@
 import {useRef, useState, useEffect, forwardRef, useImperativeHandle} from "react";
 import * as EgovNet from 'context/egovFetch';
 import CODE from "../../context/code";
+import {getValues} from "ol/obj";
 
 
 const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
     const inputRefs = useRef({});
     const [selectData, setSelectData] = useState([]); // 옵션 값
 
-    useImperativeHandle(ref, () => {
-    });
+    useImperativeHandle(ref, () => ({
+        getValues: () => {
+            return Object.fromEntries(
+                Object.entries(inputRefs.current).map(([key, el]) => [key, el?.value || ''])
+            );
+        },
+        setValues: (values) => {
+            Object.entries(values).forEach(([key, value]) => {
+                const el = inputRefs.current[key];
+                if (el) el.value = value;
+            });
+        },
+        clear : () => {
+          clear();
+        }
+    }));
+
+    const clear =  () => {
+        Object.entries(inputRefs.current).forEach(el => {
+            if(el) el.values = "";
+        })
+    }
 
 
     useEffect(() => {
+        // 임시
         searchFields.forEach(field => {
-            if(field.type === 'select' && field.apiUrl) {
+            // select 같은 공통코드 가져오기 위해 만든것...
+            /*if(field.type === 'select' && field.apiUrl) {
                 EgovNet.requestFetch(
                      field.apiUrl,
                     {method:"GET",header:{'Content-type': 'application/json'}},
@@ -23,7 +46,7 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                         }
                     }
                 )
-            }
+            }*/
         });
 
     }, []);
@@ -38,7 +61,7 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
 
                                 <div className="ml20 input_grop" key={field.key}>
                                     <label htmlFor={field.key}>{field.label}</label>
-                                    {field.type === 'select ' ? (
+                                    {field.type === 'select' ? (
                                         <select
                                             ref={el => inputRefs.current[field.key] = el}
                                             className="w-full p-2 border rounded"
@@ -63,11 +86,8 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                         </div>
                     </div>
                     <div className="btn_wrap">
-                        <button onClick={onSearch} type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch">검색
-                        </button>
-                        <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh ml10"
-                                id="btnClear">초기화
-                        </button>
+                        <button onClick={() => onSearch()} type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch">검색</button>
+                        <button onClick={clear} type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh ml10" id="btnClear">초기화</button>
                     </div>
                 </div>
             </div>

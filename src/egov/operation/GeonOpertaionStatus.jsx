@@ -9,24 +9,25 @@ import CODE from "../../context/code";
 
 
 const mockData =[
-    {admin:"아산시",routeId:"1",routeName:"1"},
-    {admin:"아산시",routeId:"2",routeName:"2"},
-    {admin:"아산시",routeId:"3",routeName:"3"},
-    {admin:"아산시",routeId:"4",routeName:"4"},
-    {admin:"아산시",routeId:"5",routeName:"5"},
-    {admin:"아산시",routeId:"6",routeName:"6"},
-    {admin:"아산시",routeId:"7",routeName:"7"},
-    {admin:"아산시",routeId:"8",routeName:"8"},
-    {admin:"아산시",routeId:"9",routeName:"9"},
-    {admin:"아산시",routeId:"10",routeName:"10"}
+    {admin:"아산시",routeId:"295000101",routeName:"1"},
+    {admin:"아산시",routeId:"295000100",routeName:"2"},
+    {admin:"아산시",routeId:"295000099",routeName:"3"},
+    {admin:"아산시",routeId:"295000098",routeName:"4"},
+    {admin:"아산시",routeId:"295000097",routeName:"5"},
+    {admin:"아산시",routeId:"295000096",routeName:"6"},
+    {admin:"아산시",routeId:"295000095",routeName:"7"},
+    {admin:"아산시",routeId:"295000093",routeName:"8"},
+    {admin:"아산시",routeId:"295000091",routeName:"9"},
+    {admin:"아산시",routeId:"295000092",routeName:"10"}
 ]
 
 const GeonOperationStatus2 = () => {
     const navigate = useNavigate();
-    const [data,setData] = useState([])
-    const [currentPage , setCurrentPage] = useState(1);
-    const [searchParam , setSearchParam] = useSearchParams();
-    const [loading , setLoading] = useState(false);
+    const [selectedItems , setSelectedItems]  = useState([]); // 체크박스 데이터
+    const [data,setData] = useState([]) // 데이터
+    const [currentPage , setCurrentPage] = useState(1); // 페이지네이션 currentPage
+    const [searchParam , setSearchParam] = useSearchParams(); // URL 쿼리파라미터
+    const [loading , setLoading] = useState(false); // 로딩 페이지
     const recordCountPerPage = 5;
     const pageSize = 5;
     const {resetMap} = useMap();
@@ -40,7 +41,7 @@ const GeonOperationStatus2 = () => {
         recordCountPerPage: recordCountPerPage
     };
 
-    const handelPageChange = (page =1) => {
+    const handlePageChange = (page =1) => {
         const values = searchRef.current?.getValues();
         handleSearch(values,page);
     }
@@ -119,6 +120,8 @@ const GeonOperationStatus2 = () => {
         }*/
     }
 
+
+
     useEffect(() => {
         const page = parseInt(searchParam.get('page') || 1);
         const adminId = searchParam.get('adminId') || "";
@@ -141,18 +144,27 @@ const GeonOperationStatus2 = () => {
             {title:"관할관청",key:"admin"},
             {title:"노선ID",key:"routeId"},
             {title:"노선명",key:"routeName"}
-        ],
-        data : data,
-        dataSize : 10,
-        paginationInfo : paginationInfo
+        ], // 헤더 설정
+        data : data, // 표출할 데이터
+        dataSize : data.length, // 데이터 사이즈
+        paginationInfo : paginationInfo, // 페이지네이션 정보
+/*        enableCheckbox : false , // 체크박스 지정
+        selectedItems : selectedItems, // 체크박스 배열*/
+        primaryKey : 'routeId' // 고유키 지정
     }
+    const handlers = {
+        onRowClick: handleRowClick,
+        onPageChange: handlePageChange,
+        /*onSelectAll: handleSelectAll,
+        onSelectItem: handleSelectItem,*/
+    };
 
     return (
         <div className="panel">
             {loading && <DotLoader />}
             <h2 className="tit">운행현황 조회</h2>
             <OperationSearch onSearch={handleSearch} ref={searchRef}/>
-            <GeonTable option={options} rowClick={handleRowClick} handelPageChange={handelPageChange}/>
+            <GeonTable option={options} handle={handlers}/>
         </div>
     )
 
