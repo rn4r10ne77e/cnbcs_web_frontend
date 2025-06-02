@@ -1,7 +1,8 @@
-import {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useSearchParams} from "react-router-dom";
 import DynamicSearch  from "../../search/DynamicSearch";
 import GeonTable from "../../common/GeonTable"
+import {DotLoader} from "../../common/loading/DotLoader";
 
 // 테스트용
 const mockData = [
@@ -32,6 +33,43 @@ const GeonUserList = () => {
         recordCountPerPage: recordCountPerPage
     };
 
+    // 데이터만 로드하는 함수
+    const loadDataOnly = (params, pageNum = 1) => {
+        setLoading(true);
+        try {
+            setCurrentPage(pageNum);
+
+            const paginatedData = mockData.slice(
+                (pageNum - 1) * recordCountPerPage,
+                pageNum * recordCountPerPage
+            );
+
+            /*const requestOptions = {
+                method:"POST",
+                header : {'Content-type' : 'application/json'},
+                body : JSON.stringify(searchValues)
+            }
+
+            EgovNet.requestFetch('/api/...',
+                requestOptions,
+                function(resp) {
+                    if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                        setData(resp.result.data);
+                        setLoading(false)
+                    }
+                }
+            );*/
+
+            setTimeout(() => {
+                setData(paginatedData);
+                setLoading(false);
+            }, 300);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    };
+
     // 사용자 검색
     const handleSearch = (param , pageNum = 1) => {
         setLoading(true);
@@ -43,37 +81,7 @@ const GeonUserList = () => {
                 newParam.set(key,value.toString())
             })
 
-
-
-            setCurrentPage(pageNum);
             setSearchParams(newParam);
-
-            // 임시 페이지 네이션...
-            const paginatedData = mockData.slice(
-                (pageNum - 1) * recordCountPerPage,
-                pageNum * recordCountPerPage
-            );
-            /*const requestOptions = {
-              method:"POST",
-              header : {'Content-type' : 'application/json'},
-              body : JSON.stringify(searchValues)
-          }
-
-          EgovNet.requestFetch('/api/...',
-              requestOptions,
-              function(resp) {
-                  if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                      setData(resp.result.data);
-                      setLoading(false)
-                  }
-              }
-          );*/
-
-            // 데이터 불러오기... (임시..)
-            setTimeout(() => {
-                setData(paginatedData);
-                setLoading(false);
-            },300)
 
         }catch (error){
             console.error(`search error :  ${error}`)
@@ -89,12 +97,6 @@ const GeonUserList = () => {
     // 상세 정보 ( item => 사용자ID )
     const handleRowClick = (item) => {
         navigator("");
-    }
-
-    //페이지네이션
-    const handelPageChange = (page =1) => {
-        const values = searchRef.current?.getValues();
-        handleSearch(values,page);
     }
 
     // 전체 선택/해제 토글
@@ -133,9 +135,9 @@ const GeonUserList = () => {
         // 서치 부분에 값을 셋팅
         searchRef.current.setValues(params);
         // 마운트 시 첫 검색실행
-        handleSearch(params,pageNum);
+        loadDataOnly(params,pageNum);
 
-    }, []);
+    }, [searchParam]);
 
     // key = id , label : 명칭 , type : input type , apiUrl : 서버에서 가져와야하는 api 주소
     const menuConfigs = {
@@ -173,6 +175,7 @@ const GeonUserList = () => {
      return (
             <>
                 <div className="content p020">
+                    {loading && <DotLoader />}
                     <h2 className="tit">사용자 관리</h2>
                     <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
                     <GeonTable option={options} handle={handlers}/>

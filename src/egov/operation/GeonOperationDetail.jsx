@@ -77,7 +77,7 @@ const GeonOperationDetail = () => {
                <div className="top">
                    {/*<span>검색결과<em className="num" id="totalCnt">{data.length}</em>건</span>*/}
                    <div></div>
-                   <button type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh" id="btnBack" onClick={handleGoBack}>뒤로가기</button>
+                   <button type="button" title="뒤로가기" className="btn btn_refresh xi-refresh" id="btnBack" onClick={handleGoBack}>뒤로가기</button>
                </div>
                <table className="tbl_result">
                    <caption>검색결과</caption>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect,useRef} from "react";
-import {useNavigate, useSearchParams}  from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import OperationSearch from "../search/OperationSearch";
 import GeonTable from "../common/GeonTable";
 import {DotLoader} from "../common/loading/DotLoader";
@@ -23,7 +23,6 @@ const mockData =[
 
 const GeonOperationStatus2 = () => {
     const navigate = useNavigate();
-    const [selectedItems , setSelectedItems]  = useState([]); // 체크박스 데이터
     const [data,setData] = useState([]) // 데이터
     const [currentPage , setCurrentPage] = useState(1); // 페이지네이션 currentPage
     const [searchParam , setSearchParam] = useSearchParams(); // URL 쿼리파라미터
@@ -32,6 +31,7 @@ const GeonOperationStatus2 = () => {
     const pageSize = 5;
     const {resetMap} = useMap();
     const searchRef = useRef();
+    const location = useLocation();
 
     const paginationInfo = {
         currentPageNo: currentPage,
@@ -46,24 +46,12 @@ const GeonOperationStatus2 = () => {
         handleSearch(values,page);
     }
 
-    const handleSearch = (param, pageNum = 1) => {
+    // 데이터만 로드하는 함수
+    const loadDataOnly = (params, pageNum = 1) => {
         setLoading(true);
-
-        try{
-            // param이  null 또는 undefinded 일때 ?? 뒤에 값을 불러옴
-            const searchValues = param ?? searchRef.current.getValues();
-
-            // 검색조건 값을 URL에 지정하기 위한 작업
-            const newParam = new URLSearchParams();
-            Object.entries({...searchValues,page:pageNum}).forEach(([key,value]) => {
-                newParam.set(key,value.toString())
-            })
-            // 페이지 숫자 지정
+        try {
             setCurrentPage(pageNum);
 
-            //현재 URL 쿼리 저장
-            setSearchParam(newParam);
-            // 임시.. 페이지네이션...
             const paginatedData = mockData.slice(
                 (pageNum - 1) * recordCountPerPage,
                 pageNum * recordCountPerPage
@@ -85,13 +73,30 @@ const GeonOperationStatus2 = () => {
                 }
             );*/
 
-
-
-            // 데이터 불러오기... (임시..)
             setTimeout(() => {
                 setData(paginatedData);
                 setLoading(false);
-            },300)
+            }, 300);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    };
+
+    const handleSearch = (param, pageNum = 1) => {
+        setLoading(true);
+
+        try{
+            // param이  null 또는 undefinded 일때 ?? 뒤에 값을 불러옴
+            const searchValues = param ?? searchRef.current.getValues();
+
+            // 검색조건 값을 URL에 지정하기 위한 작업
+            const newParam = new URLSearchParams();
+            Object.entries({...searchValues,page:pageNum}).forEach(([key,value]) => {
+                newParam.set(key,value.toString())
+            })
+
+            setSearchParam(newParam);
 
         }catch (error) {
             console.log(error)
@@ -123,10 +128,11 @@ const GeonOperationStatus2 = () => {
 
 
     useEffect(() => {
+        console.log("useEffect 실행 !!!!!")
         const page = parseInt(searchParam.get('page') || 1);
         const adminId = searchParam.get('adminId') || "";
         const searchType = searchParam.get('searchType') || "ALL";
-        const searchText = searchParam.get('textSearch') || "";
+        const searchText = searchParam.get('searchText') || "";
 
         const params = {
             adminId : adminId,
@@ -134,10 +140,12 @@ const GeonOperationStatus2 = () => {
             searchText : searchText,
             page : page,
         }
+
+        console.log(params);
         searchRef.current.setValues(params)
-        handleSearch(params,page);
+        loadDataOnly(params,page);
         resetMap();
-    }, []);
+    }, [searchParam]);
 
     const options = {
         header : [

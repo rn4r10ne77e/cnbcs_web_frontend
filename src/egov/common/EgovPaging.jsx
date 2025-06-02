@@ -64,8 +64,8 @@ function EgovPaging(props) {
             paginationTag.push(lastPageTag);
         }
     }
-    console.log("paginationTag", paginationTag);
-    console.groupEnd("EgovPaging");
+//    console.log("paginationTag", paginationTag);
+//    console.groupEnd("EgovPaging");
 
     return (
         <div className="paging">
