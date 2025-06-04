@@ -216,7 +216,7 @@ const GeonUserList = () => {
                  <h2 className="tit">사용자 관리</h2>
                  <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
                  <GeonTable option={options} handle={handlers}/>
-                 <div className="result_bottom">
+                 <div className="result_bottom split-buttons">
                      <div className="left-buttons">
                          <button type="button" className="btn black_btn" onClick={() => {handleDelete()}}>선택삭제</button>
                      </div>

@@ -273,9 +273,25 @@ select::-ms-expand {display:none;}
 /* 목록 페이지 관련 */
 .result_bottom {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px;
 }
-.result_bottom .left-buttons {display: flex; align-items: center; gap: 8px;}
-.result_bottom .right-buttons {display: flex; align-items: center; gap: 8px;}
+/* 1개만 있을 경우 오른쪽 정렬 */
+.result_bottom.single {
+    justify-content: flex-end;
+}
+/* 2개 이상일 경우 좌우 분리 */
+.result_bottom.split-buttons {
+    justify-content: space-between;
+}
+.left-buttons, .right-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* 컴포넌트 관련 */
+.btn.btn_search {
+    background-color: #555;
+    color: #ffffff;
+    border: none;
+}

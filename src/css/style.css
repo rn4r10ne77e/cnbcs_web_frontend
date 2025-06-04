@@ -452,12 +452,8 @@ table .tr_dp2 table thead th {
 .panel_wrap .content {
   position: absolute;
   left: 180px;
-  /*top: 60px;*/
   top:0;
-  width: calc(100% - 180px);
-  /* jjkim */
-  /*min-width: 1400px;*/
-  min-width:1739px;
+  min-width: calc(100vw - 181px); /* (전체길이) - (LNB가로길이 + LNB border) */
   height: calc(100vh - 60px);
   background-color: #fff;
   z-index: 200; /* byjang */
