@@ -4,6 +4,8 @@ import DynamicSearch  from "../../search/DynamicSearch";
 import GeonTable from "../../common/GeonTable"
 import {DotLoader} from "../../common/loading/DotLoader";
 import EgovPaging from "../../common/EgovPaging";
+import * as EgovNet from 'context/egovFetch';
+import CODE from "../../../context/code";
 
 // 테스트용
 const mockData = [
@@ -119,21 +121,41 @@ const GeonUserList = () => {
             // 모두 선택
             const allIds = data.map(item => item[PRIMARY_KEY]);
             setSelectedItems(allIds);
-            console.log(allIds)
         }
     };
 
     // 개별 선택/해제
     const handleSelectItem = (id) => {
-        console.log(`ddd_${id}`)
         if (selectedItems.includes(id)) {
-            console.log(id);
             setSelectedItems(selectedItems.filter(i => i !== id));
         } else {
-            console.log(id);
             setSelectedItems([...selectedItems, id]);
         }
     };
+
+    // 선택삭제 함수
+    const handleDelete =  () => {
+        const requestOptions = {
+               method:"POST",
+               header : {'Content-type' : 'application/json'},
+               body : JSON.stringify(selectedItems)
+           }
+
+           EgovNet.requestFetch('/api/...',
+               requestOptions,
+               function(resp) {
+                   if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                       setData(resp.result.data);
+                       setLoading(false)
+                   }
+               }
+           );
+    }
+    
+    // 등록버튼
+    const handleInsert = () => {
+        navigator("");
+    }
 
     useEffect(() => {
         //1. searchParam의 값을 배열에서 객체로 변환
@@ -194,9 +216,8 @@ const GeonUserList = () => {
                  <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
                  <GeonTable option={options} handle={handlers}/>
                  <div className="result_bottom flex-sb mt20">
-                     <button type="button" className="btn black_btn" id="btnChoiceDelete">선택삭제</button>
-                     <div className="paging"></div>
-                     <button type="button" className="btn black_btn" id="btnRegist">등록</button>
+                     <button type="button" className="btn black_btn" onClick={() => {handleDelete()}}>선택삭제</button>
+                     <button type="button" className="btn black_btn" onClick={() => {handleInsert()}}>등록</button>
                  </div>
                  <EgovPaging pagination={paginationInfo} moveToPage={(pageNum) => handleSearch(pageNum)}/>
              </div>
