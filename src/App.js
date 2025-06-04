@@ -28,8 +28,10 @@ import GeonOperationStatus from "./egov/operation/GeonOpertaionStatus";
 import GeonOperationDetail from "./egov/operation/GeonOperationDetail";
 import GeonLogin from "./egov/login/GeonLogin";
 import GeonUserList from "./egov/admin/user/GeonUserList";
+import GeonUserRegist from "./egov/admin/user/GeonUserRegist";
 import { MapProvider } from './egov/common/map/VWorldContext';
 import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
+
 
 
 
@@ -73,6 +75,7 @@ import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
                                 <Route path="operation/status" element={<GeonOperationStatus />} />
                                 <Route path="operation/status/:id" element={<GeonOperationDetail />} />
                                 <Route path="admin/userList" element={<GeonUserList/>}/>
+                                <Route path="admin/userRegist" element={<GeonUserRegist/>}/>
                             </Route>
                         </Routes>
                     </VWorldMap>

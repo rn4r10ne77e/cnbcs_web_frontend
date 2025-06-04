@@ -82,6 +82,13 @@ button {cursor: pointer;}
 .mr10 {margin-right: 10px !important;}
 .pb10 {padding-bottom: 10px !important;}
 
+/*250604*/
+.p020 {padding: 0px 20px !important;}
+.tx-right {text-align:right !important;}
+.clr-red {color : #e60012 !important;}
+.mb10 {margin-bottom: 10px !important;}
+
+
 input[type="password"], input[type="search"], input[type="text"], input[type="number"] {border: 1px solid #aaa; outline: none; padding: 0 10px; height: 30px; border-radius: 3px;}
 select {position: relative; padding: 0 27px 0 8px; height: 30px; width: auto; line-height: 30px; border: 1px solid #aaa; border-radius: 3px; color: #555; cursor: pointer; background-position: calc(100% - 2px) 50%; background-repeat: no-repeat; outline: none; }
 .btn {height: 30px; padding: 5px 10px; border: 1px solid #aaa; border-radius: 3px; line-height: 1em; background-color: #fff;}

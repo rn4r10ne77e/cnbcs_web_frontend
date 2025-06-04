@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import DynamicSearch  from "../../search/DynamicSearch";
 import GeonTable from "../../common/GeonTable"
 import {DotLoader} from "../../common/loading/DotLoader";
@@ -37,6 +37,7 @@ const GeonUserList = () => {
     const pageSize = 5;
     const searchRef = useRef();
     const [loading , setLoading] = useState(false);
+    const navigate = useNavigate();
     // 컴포넌트 상단에 상수 정의
 
 
@@ -109,7 +110,7 @@ const GeonUserList = () => {
 
     // 상세 정보 ( item => 사용자ID )
     const handleRowClick = (item) => {
-        navigator("");
+        navigate("");
     }
 
     // 전체 선택/해제 토글
@@ -154,7 +155,7 @@ const GeonUserList = () => {
     
     // 등록버튼
     const handleInsert = () => {
-        navigator("");
+        navigate("/admin/UserRegist");
     }
 
     useEffect(() => {
