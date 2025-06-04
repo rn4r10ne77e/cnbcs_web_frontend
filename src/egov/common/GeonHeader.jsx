@@ -15,8 +15,8 @@ function GeonHeader() {
         <div className="header">
             {/*<div className="inner">*/}
                 <h1 className="logo">
-                    <Link to={URL.MAIN} className="m"><img src="/assets/images/logo_CNBUS.svg"alt="인제군 BIS 기초 자료 관리 시스템"/></Link>
-                    <span className="tit">인제언제 BIS 기초 자료 관리 시스템</span>
+                    <Link to={URL.MAIN}><img src="/assets/images/logo/logo_inje1_icontext_horizontal.svg" alt="인제군 BIS 기초 자료 관리 시스템"/></Link>
+                    <span className="tit">인제언제 BIS 기초 자료 관리 시스템(BIS)</span>
                 </h1>
                 <div className="btn_wrap">
 

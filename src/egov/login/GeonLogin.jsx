@@ -31,9 +31,9 @@ function GeonLogin() {
 
     return (
         <div className="wrap_login_cnbis">
-            <header id="header" className="login_header">
+            <header id="header" className="header">
                 <h1 className="logo">
-                    {/*<img src="/cnbus/app/images/logo_CNBUS.svg" alt="충청남도 노선버스 운행정보시스템"/>*/}
+                    <img src="/assets/images/logo/logo_inje1_icontext_horizontal.svg" alt="충청남도 노선버스 운행정보시스템"/>
                     <span className="tit">인제가면 언제가나 노선버스 운행정보시스템(BIS)</span>
                 </h1>
             </header>
