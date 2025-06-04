@@ -86,10 +86,6 @@ const GeonTable = ({option, handle={}}) => {
                     </tbody>
                 </table>
             </div>
-            <EgovPaging
-                pagination={paginationInfo}
-                moveToPage={(pageNum) => onPageChange(pageNum)}
-            />
         </>
     )
 }

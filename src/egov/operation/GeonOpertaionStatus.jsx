@@ -6,6 +6,7 @@ import {DotLoader} from "../common/loading/DotLoader";
 import {useMap} from "../common/map/VWorldContext";
 import * as EgovNet from 'context/egovFetch';
 import CODE from "../../context/code";
+import EgovPaging from "../common/EgovPaging";
 
 
 const mockData =[
@@ -83,12 +84,12 @@ const GeonOperationStatus2 = () => {
         }
     };
 
-    const handleSearch = (param, pageNum = 1) => {
+    const handleSearch = (pageNum = 1) => {
         setLoading(true);
 
         try{
-            // param이  null 또는 undefinded 일때 ?? 뒤에 값을 불러옴
-            const searchValues = param ?? searchRef.current.getValues();
+            // param이 falsy 값일 때 일때 오른쪽 실행
+            const searchValues = searchRef.current.getValues();
 
             // 검색조건 값을 URL에 지정하기 위한 작업
             const newParam = new URLSearchParams();
@@ -162,9 +163,6 @@ const GeonOperationStatus2 = () => {
     }
     const handlers = {
         onRowClick: handleRowClick,
-        onPageChange: handlePageChange,
-        /*onSelectAll: handleSelectAll,
-        onSelectItem: handleSelectItem,*/
     };
 
     return (
@@ -173,6 +171,7 @@ const GeonOperationStatus2 = () => {
             <h2 className="tit">운행현황 조회</h2>
             <OperationSearch onSearch={handleSearch} ref={searchRef}/>
             <GeonTable option={options} handle={handlers}/>
+            <EgovPaging pagination={paginationInfo} moveToPage={(pageNum) => handleSearch(pageNum)}/>
         </div>
     )
 

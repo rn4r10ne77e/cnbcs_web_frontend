@@ -3,18 +3,28 @@ import {useSearchParams} from "react-router-dom";
 import DynamicSearch  from "../../search/DynamicSearch";
 import GeonTable from "../../common/GeonTable"
 import {DotLoader} from "../../common/loading/DotLoader";
+import EgovPaging from "../../common/EgovPaging";
 
 // 테스트용
 const mockData = [
     {
-        no:"아산시",
+        no:"1",
         userId:"sys_admin",
         userName : "지오앤",
         role:"운영자",
         telNo:"041-111-1111",
         registTs : "2025-05-26"
+    },
+    {
+        no:"2",
+        userId:"sys_admin2",
+        userName : "홍주여객",
+        role:"시군",
+        telNo:"041-111-1111",
+        registTs : "2025-05-03"
     }
 ]
+const PRIMARY_KEY = 'userId';
 
 const GeonUserList = () => {
     const [data , setData] = useState([]);
@@ -25,6 +35,9 @@ const GeonUserList = () => {
     const pageSize = 5;
     const searchRef = useRef();
     const [loading , setLoading] = useState(false);
+    // 컴포넌트 상단에 상수 정의
+
+
 
     const paginationInfo = {
         currentPageNo: currentPage,
@@ -71,11 +84,12 @@ const GeonUserList = () => {
     };
 
     // 사용자 검색
-    const handleSearch = (param , pageNum = 1) => {
+    const handleSearch = ( pageNum = 1) => {
         setLoading(true);
 
         try{
-            const searchValues = param ?? searchRef.current.getValues();
+            // param이 falsy 값일 때 일때 오른쪽 실행
+            const searchValues = searchRef.current.getValues();
             const newParam = new URLSearchParams();
             Object.entries({...searchValues,page:pageNum}).forEach(([key,value]) => {
                 newParam.set(key,value.toString())
@@ -89,10 +103,7 @@ const GeonUserList = () => {
         }
 
     }
-    const handlePageChange = (page =1) => {
-        const values = searchRef.current?.getValues();
-        handleSearch(values,page);
-    }
+
 
     // 상세 정보 ( item => 사용자ID )
     const handleRowClick = (item) => {
@@ -101,21 +112,25 @@ const GeonUserList = () => {
 
     // 전체 선택/해제 토글
     const handleSelectAll = () => {
-        if (selectedItems.length === options.data.length) {
+        if (selectedItems.length === data.length) {
             // 이미 모두 선택된 상태라면 해제
             setSelectedItems([]);
         } else {
             // 모두 선택
-            const allIds = options.data.map(item => item[options.primaryKey]);
+            const allIds = data.map(item => item[PRIMARY_KEY]);
             setSelectedItems(allIds);
+            console.log(allIds)
         }
     };
 
     // 개별 선택/해제
     const handleSelectItem = (id) => {
+        console.log(`ddd_${id}`)
         if (selectedItems.includes(id)) {
+            console.log(id);
             setSelectedItems(selectedItems.filter(i => i !== id));
         } else {
+            console.log(id);
             setSelectedItems([...selectedItems, id]);
         }
     };
@@ -162,26 +177,31 @@ const GeonUserList = () => {
         paginationInfo : paginationInfo, // 페이지네이션 정보
         enableCheckbox : true , // 체크박스 지정
         selectedItems : selectedItems, // 체크박스 배열
-        primaryKey : 'userId' // 고유키 지정
+        primaryKey : PRIMARY_KEY // 고유키 설정
     }
 
     const handlers = {
         onRowClick: handleRowClick,
-        onPageChange: handlePageChange,
         onSelectAll: handleSelectAll,
         onSelectItem: handleSelectItem,
     }
 
      return (
-            <>
-                <div className="content p020">
-                    {loading && <DotLoader />}
-                    <h2 className="tit">사용자 관리</h2>
-                    <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
-                    <GeonTable option={options} handle={handlers}/>
-                </div>
-            </>
-    )
+         <>
+             <div className="content p020">
+                 {loading && <DotLoader/>}
+                 <h2 className="tit">사용자 관리</h2>
+                 <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
+                 <GeonTable option={options} handle={handlers}/>
+                 <div className="result_bottom flex-sb mt20">
+                     <button type="button" className="btn black_btn" id="btnChoiceDelete">선택삭제</button>
+                     <div className="paging"></div>
+                     <button type="button" className="btn black_btn" id="btnRegist">등록</button>
+                 </div>
+                 <EgovPaging pagination={paginationInfo} moveToPage={(pageNum) => handleSearch(pageNum)}/>
+             </div>
+         </>
+     )
 }
 
 export default GeonUserList;
