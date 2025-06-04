@@ -53,37 +53,35 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
 
     return (
         <>
-            <div className="wp100">
+            <div className="ml10 mr10">
                 <div className="filter_wrap p020">
-                    <div className="filter">
-                        <div className="input_wrap three line_01">
-                            {searchFields.map((field)=>(
+                    <div className="input_wrap three form_align01">
+                        {searchFields.map((field)=>(
 
-                                <div className="ml20 input_grop" key={field.key}>
-                                    <label htmlFor={field.key}>{field.label}</label>
-                                    {field.type === 'select' ? (
-                                        <select
-                                            ref={el => inputRefs.current[field.key] = el}
-                                            className="w-full p-2 border rounded"
-                                        >
-                                            <option value="">전체</option>
-                                            {(selectData[field.key] || field.options || []).map(option => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    ): (
-                                        <input
-                                            type="text"
-                                            ref={el => inputRefs.current[field.key] = el}
-                                            placeholder={field.placeholder}
-                                            className="w-full p-2 border rounded"
-                                        />
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                            <div key={field.key}>
+                                <label htmlFor={field.key}>{field.label}</label>
+                                {field.type === 'select' ? (
+                                    <select
+                                        ref={el => inputRefs.current[field.key] = el}
+                                        className="w-full p-2 border rounded"
+                                    >
+                                        <option value="">전체</option>
+                                        {(selectData[field.key] || field.options || []).map(option => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ): (
+                                    <input
+                                        type="text"
+                                        id={field.key}
+                                        ref={el => inputRefs.current[field.key] = el}
+                                        placeholder={field.placeholder}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     </div>
                     <div className="btn_wrap">
                         <button onClick={() => onSearch()} type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch">검색</button>

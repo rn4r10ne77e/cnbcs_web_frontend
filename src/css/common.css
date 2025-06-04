@@ -1435,7 +1435,7 @@ h4.tit {
   display: block;
 }
 
-.panel_wrap .input_wrap {
+/*.panel_wrap .input_wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1445,7 +1445,7 @@ h4.tit {
   padding: 10px;
   background-color: #6eb92b;
   overflow: hidden;
-}
+}*/
 
 .panel_wrap .input_wrap .select_search {
   width: 130px;

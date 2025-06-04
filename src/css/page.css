@@ -79,7 +79,6 @@
 
     .panel_wrap .panel {position: absolute; left: 180px; top: 0px; width: 400px; height: calc(100vh - 60px); background: #f8f8f8; border-right: 1px solid #aaa;}
     .panel_wrap .panel h2.tit {height: 38px; line-height: 38px; font-size: 18px; background: #fff; color: #111; font-family: 'Noto Sans KR-M'; padding-left: 10px;}
-    .panel_wrap .input_wrap {display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; padding: 10px; background: #6eb92b; overflow: hidden;}
     .panel_wrap .input_wrap {display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; padding: 10px; background-color: #6eb92b; overflow: hidden; }
     .panel_wrap .input_wrap .select_search {width: 130px; height: 30px;}
     .panel_wrap .input_wrap .input_search {width: calc(100% - 200px);}
@@ -341,3 +340,5 @@
     .calendar_info ul li::before {content: ""; display: block; position: absolute; left: 20px; top: 27px; width: 2px; height: 2px; background: #222;}
     .calendar_info ul li a {color: #222; font-size: 16px; font-weight: 300;}
     .calendar_info ul li span {position: absolute; right: 15px; top: 15px; color: #808080; font-size: 16px; font-weight: 300;}
+
+    .form_align01 {display: flex; justify-content: space-evenly;}
