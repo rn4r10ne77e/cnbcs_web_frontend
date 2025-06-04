@@ -3,16 +3,12 @@ import { Link } from 'react-router-dom';
 
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
-import GeonAccordionMenu from "../common/GeonVerticalAccordion";
-import GeonVerticalAccordion from "../common/GeonVerticalAccordion";
 
 function EgovMain(props) {
     console.group("EgovMain");
     console.log("[Start] EgovMain ------------------------------");
     console.log("EgovMain [props] : ", props);
 
-   // const history = useHistory();
-   // console.log("EgovMain [history] : ", history);
 
     const [noticeBoard, setNoticeBoard] = useState();
     const [gallaryBoard, setGallaryBoard] = useState();

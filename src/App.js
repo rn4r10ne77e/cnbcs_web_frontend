@@ -12,9 +12,9 @@ import EgovFooter from 'egov/common/EgovFooter';
 import EgovMain from 'egov/main/EgovMain';
 //import EgovLogin from 'egov/login/EgovLogin';
 
-import './js/ui';
-
+// import './js/ui';
 import './css/base.css';
+import './css/menu.css';
 import './css/layout.css';
 import './css/component.css';
 import './css/page.css';

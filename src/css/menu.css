@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/* LNB 버튼 애니메이션 */
+.lnb > ul > .lnb_item > button {
+    transition: all 0.15s ease-in-out;
+}
+
+/* 서브 메뉴 항목 기본 색상 */
+.lnb > ul > .lnb_item > ul > li > a {
+    color: #333;
+    transition: color 0.25s ease;
+}
+
+/* 서브 메뉴 항목 hover 시 색상 */
+.lnb > ul > .lnb_item > ul > li > a:hover {
+    color: #6eb92b;
+}
+
+/* 서브 메뉴 항목 선택된 상태(on 클래스) */
+.lnb > ul > .lnb_item > ul > li > a.on {
+    color: #6eb92b;
+    font-weight: bold;
+}

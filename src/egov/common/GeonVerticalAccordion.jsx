@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from "react";
+import {Link, useLocation} from 'react-router-dom';
 
 const menuItems = [
     {
@@ -32,18 +32,25 @@ const menuItems = [
 
 const GeonVerticalAccordion = () => {
     const [openIndex, setOpenIndex] = useState(null);
+    const location = useLocation();
+
+    useEffect(() => {
+        const foundIndex = menuItems.findIndex(group =>
+            group.children.some(child => child.url === location.pathname)
+        );
+        setOpenIndex(foundIndex !== -1 ? foundIndex : null);
+    }, [location.pathname]);
 
     const toggle = (index) => {
         setOpenIndex(prev => (prev === index ? null : index));
-
     };
 
     return (
-        <div className="w-64 min-h-screen bg-gray-100 p-4 border-r">
+        <div className="lnb">
             {/*<h2 className="text-xl font-bold mb-4">메뉴</h2>*/}
             <ul className="space-y-2">
                 {menuItems.map((item, index) => (
-                    <li key={index}>
+                    <li key={index} className={`lnb_item`}>
                         <button
                             onClick={() => toggle(index)}
                             className={`w-full text-left flex justify-between items-center px-3 py-2 bg-white rounded hover:bg-gray-200 ${openIndex === index ? 'on' : ''}`}
@@ -56,15 +63,9 @@ const GeonVerticalAccordion = () => {
                                 {item.children.map((child, idx) => (
                                     <li key={idx}>
                                         <Link to={child.url}
-                                              className="block px-3 py-1 text-blue-600 hover:underline">
+                                              className={`block px-3 py-1 text-blue-600 hover:underline ${location.pathname === child.url ? 'on' : ''}`}>
                                             {child.title}
                                         </Link>
-                                        {/*<a
-                                            href={child.url}
-                                            className="block px-3 py-1 text-blue-600 hover:underline"
-                                        >
-                                            {child.title}
-                                        </a>*/}
                                     </li>
                                 ))}
                             </ul>

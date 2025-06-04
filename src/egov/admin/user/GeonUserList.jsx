@@ -210,14 +210,18 @@ const GeonUserList = () => {
 
      return (
          <>
-             <div className="content p020">
+             <div className="content">
                  {loading && <DotLoader/>}
                  <h2 className="tit">사용자 관리</h2>
                  <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
                  <GeonTable option={options} handle={handlers}/>
-                 <div className="result_bottom flex-sb mt20">
-                     <button type="button" className="btn black_btn" onClick={() => {handleDelete()}}>선택삭제</button>
-                     <button type="button" className="btn black_btn" onClick={() => {handleInsert()}}>등록</button>
+                 <div className="result_bottom">
+                     <div className="left-buttons">
+                         <button type="button" className="btn black_btn" onClick={() => {handleDelete()}}>선택삭제</button>
+                     </div>
+                     <div className="right-buttons">
+                         <button type="button" className="btn black_btn" onClick={() => {handleInsert()}}>등록</button>
+                     </div>
                  </div>
                  <EgovPaging pagination={paginationInfo} moveToPage={(pageNum) => handleSearch(pageNum)}/>
              </div>
