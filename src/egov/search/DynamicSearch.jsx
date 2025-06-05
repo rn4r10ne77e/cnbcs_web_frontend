@@ -32,11 +32,11 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
     }
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         // 임시
         searchFields.forEach(field => {
             // select 같은 공통코드 가져오기 위해 만든것...
-            /*if(field.type === 'select' && field.apiUrl) {
+            /!*if(field.type === 'select' && field.apiUrl) {
                 EgovNet.requestFetch(
                      field.apiUrl,
                     {method:"GET",header:{'Content-type': 'application/json'}},
@@ -46,10 +46,10 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                         }
                     }
                 )
-            }*/
+            }*!/
         });
 
-    }, []);
+    }, []);*/
 
     return (
         <>

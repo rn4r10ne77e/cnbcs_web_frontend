@@ -1,23 +1,25 @@
 @charset "utf-8";
 
+
 /* LNB 버튼 애니메이션 */
-.lnb > ul > .lnb_item > button {
-    transition: all 0.15s ease-in-out;
-}
-
+.lnb > ul > .lnb_item { border-bottom: 1px solid #aaa; }
+/* LNB 버튼 애니메이션 */
+.lnb > ul > .lnb_item > button { transition: all 0.15s ease-in-out; text-align: center; }
 /* 서브 메뉴 항목 기본 색상 */
-.lnb > ul > .lnb_item > ul > li > a {
-    color: #333;
-    transition: color 0.25s ease;
-}
-
+.lnb > ul > .lnb_item > ul > li > a { color: #333; transition: color 0.25s ease; }
 /* 서브 메뉴 항목 hover 시 색상 */
-.lnb > ul > .lnb_item > ul > li > a:hover {
-    color: #6eb92b;
-}
-
+.lnb > ul > .lnb_item > ul > li > a:hover { color: #6eb92b; }
 /* 서브 메뉴 항목 선택된 상태(on 클래스) */
-.lnb > ul > .lnb_item > ul > li > a.on {
-    color: #6eb92b;
-    font-weight: bold;
+.lnb > ul > .lnb_item > ul > li > a.on { color: #6eb92b; font-weight: bold; }
+/* LNB 버튼 화살표 아이콘 */
+.lnb_item > button .toggle_icon::after {
+    float: right;
+    font-family: xeicon !important;
+    content: "\e946"; /* 위 화살표 아이콘 */
+    font-size: 20px;
+    vertical-align: middle;
+    display: inline-block;
 }
+.lnb_item > button .toggle_icon.on::after { content: "\e943"; /* 아래 화살표 아이콘 */ }
+
+

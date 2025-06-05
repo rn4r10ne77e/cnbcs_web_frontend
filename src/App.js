@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
+// import React, { useState } from 'react';
+import React from 'react';
 
+import {Navigate, Route, Routes} from 'react-router-dom';
+/*
 import URL from 'context/url';
 import CODE from 'context/code';
+*/
 
 //COMMON
 import EgovFooter from 'egov/common/EgovFooter';
 //import EgovInfoPopup from 'egov/common/EgovInfoPopup';
 //import EgovError from 'egov/common/EgovError';
 
-import EgovMain from 'egov/main/EgovMain';
+// import EgovMain from 'egov/main/EgovMain';
 //import EgovLogin from 'egov/login/EgovLogin';
 
 // import './js/ui';
@@ -58,7 +61,8 @@ import {LoginProvider,useAuth} from "./egov/login/GeonLoginContext";
 
 
     function AppLayout() {
-      const { isAuthenticated, loading } = useAuth();
+      // const { isAuthenticated, loading } = useAuth();
+      const { isAuthenticated } = useAuth();
 
       if(!isAuthenticated){
           return <Navigate to="/login"/>

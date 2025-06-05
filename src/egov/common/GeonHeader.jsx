@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {useAuth} from "../login/GeonLoginContext";
 
-import * as EgovNet from 'context/egovFetch';
+// import * as EgovNet from 'context/egovFetch';
 
 import URL from 'context/url';
-import CODE from 'context/code';
+// import CODE from 'context/code';
 
 function GeonHeader() {
    // const history = useHistory();
@@ -22,14 +22,15 @@ function GeonHeader() {
 
                 </div>
             <div className="info_box">
+                <div className="user_display">
+                    <span>{user.name}</span>
+                    <span> 님</span>
+                </div>
                 {isAuthenticated && (
-                    <span className="time">남은시간:<span id="leftTimeInfo">00:00</span>{user.name}</span>)
+                    <span className="time">남은시간: <span id="leftTimeInfo">00:00</span></span>)
                 }
-
-
-                {/*<button id="clickInfo" className="btn">시간연장</button>*/}
+                <button className="btn" id="extend" onClick={() => logout()}>시간연장</button>
                 <button className="btn" id="logout" onClick={() => logout()}>로그아웃</button>
-
             </div>
             {/*<div className="gnb">
                 </div>

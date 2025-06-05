@@ -31,7 +31,7 @@ export function LoginProvider({children}) {
         EgovNet.requestFetch(loginUrl, requestOptions,
             function (resp) {
                 console.log("===>>> logout resp= ", resp);
-                if (resp.resultCode == CODE.RCV_SUCCESS) {
+                if (resp.resultCode === CODE.RCV_SUCCESS) {
                     setLoginVo( resp.user );
                     //window.alert("세션쳌!");
                 }
@@ -55,7 +55,7 @@ export function LoginProvider({children}) {
         EgovNet.requestFetch(loginUrl, requestOptions,
             function (resp) {
                 console.log("===>>> logout resp= ", resp);
-                if (resp.resultCode == CODE.RCV_SUCCESS) {
+                if (resp.resultCode === CODE.RCV_SUCCESS) {
                     setLoginVo( resp.resultVO );
                     console.log("loginVo: " + loginVO)
                 }
@@ -77,7 +77,7 @@ export function LoginProvider({children}) {
         EgovNet.requestFetch(logOutUrl, requestOptions,
             function (resp) {
                 console.log("===>>> logout resp= ", resp);
-                if (resp.resultCode == CODE.RCV_SUCCESS) {
+                if (resp.resultCode === CODE.RCV_SUCCESS) {
                     setLoginVo(null);
                     window.alert("로그아웃되었습니다!");
                 }

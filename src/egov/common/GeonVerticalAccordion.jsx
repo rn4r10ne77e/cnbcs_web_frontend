@@ -56,7 +56,7 @@ const GeonVerticalAccordion = () => {
                             className={`w-full text-left flex justify-between items-center px-3 py-2 bg-white rounded hover:bg-gray-200 ${openIndex === index ? 'on' : ''}`}
                         >
                             {item.title}
-                            <span>{openIndex === index ? "▾" : "▸"}</span>
+                            <span className={`toggle_icon ${openIndex === index ? 'on' : ''}`}></span>
                         </button>
                         {openIndex === index && (
                             <ul className="mt-1 ml-4 space-y-1 show">
