@@ -1,61 +1,98 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {useAuth} from "../login/GeonLoginContext";
-
-// import * as EgovNet from 'context/egovFetch';
-
+import styled from 'styled-components';
+import { useAuth } from "../login/GeonLoginContext";
 import URL from 'context/url';
-// import CODE from 'context/code';
+
+const Header = styled.div`
+    height: 60px;
+    background: #fff;
+    border-bottom: 5px solid #6eb92b;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const Logo = styled.h1`
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 104px;
+    }
+
+    .tit {
+        display: inline-block;
+        text-indent: 4px;
+        font-size: 22px;
+        letter-spacing: -0.075em;
+        line-height: 60px;
+    }
+`;
+
+const InfoBox = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;
+
+const UserDisplay = styled.div`
+    display: flex;
+    align-items: center;
+
+    span:first-of-type {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    span:nth-of-type(2) {
+        font-size: 16px;
+    }
+`;
+
+const Time = styled.span`
+    color: dimgray;
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+`;
+
+const Button = styled.button`
+    height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    line-height: 1em;
+    background-color: #fff;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: #ddd;
+    }
+`;
 
 function GeonHeader() {
-   // const history = useHistory();
-    const {logout,user,isAuthenticated} = useAuth();
+    const { logout, user, isAuthenticated } = useAuth();
     return (
-        // <!-- header -->
-        <div className="header">
-            {/*<div className="inner">*/}
-                <h1 className="logo">
-                    <Link to={URL.MAIN}><img src="/assets/images/logo/logo_inje1_icontext_horizontal.svg" alt="인제군 BIS 기초 자료 관리 시스템"/></Link>
-                    <span className="tit">인제언제 BIS 기초 자료 관리 시스템(BIS)</span>
-                </h1>
-                <div className="btn_wrap">
-
-                </div>
-            <div className="info_box">
-                <div className="user_display">
+        <Header>
+            <Logo>
+                <Link to={URL.MAIN}>
+                    <img src="/assets/images/logo/logo_inje1_icontext_horizontal.svg" alt="인제군 BIS 기초 자료 관리 시스템" />
+                </Link>
+                <span className="tit">인제언제 BIS 기초 자료 관리 시스템(BIS)</span>
+            </Logo>
+            <InfoBox>
+                <UserDisplay>
                     <span>{user.name}</span>
-                    <span> 님</span>
-                </div>
+                    <span>&nbsp;님</span>
+                </UserDisplay>
                 {isAuthenticated && (
-                    <span className="time">남은시간: <span id="leftTimeInfo">00:00</span></span>)
-                }
-                <button className="btn" id="extend" onClick={() => logout()}>시간연장</button>
-                <button className="btn" id="logout" onClick={() => logout()}>로그아웃</button>
-            </div>
-            {/*<div className="gnb">
-                </div>
-                 <!-- PC web에서 보여지는 영역 -->
-                <div className="user_info">
-                     로그아웃 : 로그인 정보 있을때
-                    {loginUser?.id &&
-                        <>
-                            <span className="person">{loginUser?.name} </span> 님이, 관리자로 로그인하셨습니다.
-                            <button onClick={logOutHandler} className="btn">로그아웃</button>
-                            <br/>남은시간: <span id="leftTimeInfo">00:00</span>
-                            <button id="clickInfo" className="btn" href="javascript:void()" style="cursor:pointer"onClick="reFreshTime()">시간연장</button>
-                            <button className="btn" style="cursor:pointer" id="logout">로그아웃</button>
-                        </>
-                    }
-                     로그인 : 로그인 정보 없을 때
-                    {!loginUser?.id &&
-                        <button onClick={logInHandler} className="btn login">로그인</button>
-                    }
-                </div>*/
-            }
-                {/* <!--// PC web에서 보여지는 영역 --> */}
-            {/*</div>*/}
-        </div>
-
+                    <Time>남은시간: <span id="leftTimeInfo">00:00:00</span></Time>
+                )}
+                <Button id="extend" onClick={() => logout()}>시간연장</Button>
+                <Button id="logout" onClick={() => logout()}>로그아웃</Button>
+            </InfoBox>
+        </Header>
     );
 }
 

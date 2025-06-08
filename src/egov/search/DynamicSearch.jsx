@@ -1,8 +1,7 @@
-import {useRef, useState, useEffect, forwardRef, useImperativeHandle} from "react";
+import { useRef, useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import * as EgovNet from 'context/egovFetch';
 import CODE from "../../context/code";
 import {getValues} from "ol/obj";
-
 
 const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
     const inputRefs = useRef({});
@@ -21,15 +20,11 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
             });
         },
         clear : () => {
-          clear();
+            Object.entries(inputRefs.current).forEach(el => {
+                if(el) el.values = "";
+            })
         }
     }));
-
-    const clear =  () => {
-        Object.entries(inputRefs.current).forEach(el => {
-            if(el) el.values = "";
-        })
-    }
 
 
     /*useEffect(() => {
@@ -57,13 +52,14 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                 <div className="filter_wrap p020">
                     <div className="input_wrap three form_align01">
                         {searchFields.map((field)=>(
-
-                            <div key={field.key}>
+                            <div key={field.key} style={{display:"flex", alignItems: "center"}}>
                                 <label htmlFor={field.key}>{field.label}</label>
                                 {field.type === 'select' ? (
                                     <select
                                         ref={el => inputRefs.current[field.key] = el}
-                                        className="w-full p-2 border rounded"
+                                        id={field.key}
+                                        className="p-2 border rounded"
+                                        style={{width:"185px"}}
                                     >
                                         <option value="">전체</option>
                                         {(selectData[field.key] || field.options || []).map(option => (
@@ -85,13 +81,12 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                     </div>
                     <div className="btn_wrap">
                         <button onClick={() => onSearch()} type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch">검색</button>
-                        <button onClick={clear} type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh ml10" id="btnClear">초기화</button>
+                        <button onClick={() => ref.current.clear()} type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh ml10" id="btnClear">초기화</button>
                     </div>
                 </div>
             </div>
         </>
     )
-
 })
 
 export default DynamicSearch;
