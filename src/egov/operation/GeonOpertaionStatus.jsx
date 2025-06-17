@@ -156,9 +156,6 @@ const GeonOperationStatus2 = () => {
         ], // 헤더 설정
         data : data, // 표출할 데이터
         dataSize : data.length, // 데이터 사이즈
-        paginationInfo : paginationInfo, // 페이지네이션 정보
-/*        enableCheckbox : false , // 체크박스 지정
-        selectedItems : selectedItems, // 체크박스 배열*/
         primaryKey : 'routeId' // 고유키 지정
     }
     const handlers = {

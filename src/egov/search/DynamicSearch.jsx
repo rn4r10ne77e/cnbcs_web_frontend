@@ -48,18 +48,19 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
 
     return (
         <>
-            <div className="ml10 mr10">
-                <div className="filter_wrap p020">
+            {/*<div className="ml10 mr10">*/}
+            <div className="filter_wrap p020">
+                <div className="filter">
                     <div className="input_wrap three form_align01">
-                        {searchFields.map((field)=>(
-                            <div key={field.key} style={{display:"flex", alignItems: "center"}}>
+                        {searchFields.map((field) => (
+                            /*<div key={field.key} style={{display: "flex", alignItems: "center"}}>*/
+                            <div key={field.key} className="input_group">
                                 <label htmlFor={field.key}>{field.label}</label>
                                 {field.type === 'select' ? (
                                     <select
                                         ref={el => inputRefs.current[field.key] = el}
                                         id={field.key}
                                         className="p-2 border rounded"
-                                        style={{width:"185px"}}
                                     >
                                         <option value="">전체</option>
                                         {(selectData[field.key] || field.options || []).map(option => (
@@ -68,7 +69,7 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                                             </option>
                                         ))}
                                     </select>
-                                ): (
+                                ) : (
                                     <input
                                         type="text"
                                         id={field.key}
@@ -79,12 +80,17 @@ const DynamicSearch = forwardRef(({searchFields, onSearch},ref) => {
                             </div>
                         ))}
                     </div>
-                    <div className="btn_wrap">
-                        <button onClick={() => onSearch()} type="button" title="검색하기" className="btn btn_search xi-search" id="btnSearch">검색</button>
-                        <button onClick={() => ref.current.clear()} type="button" title="검색조건초기화" className="btn btn_refresh xi-refresh ml10" id="btnClear">초기화</button>
-                    </div>
+                </div>
+                <div className="btn_wrap">
+                    <button onClick={() => onSearch()} type="button" title="검색하기"
+                            className="btn btn_search xi-search" id="btnSearch">검색
+                    </button>
+                    <button onClick={() => ref.current.clear()} type="button" title="검색조건초기화"
+                            className="btn btn_refresh xi-refresh ml10" id="btnClear">초기화
+                    </button>
                 </div>
             </div>
+            {/*</div>*/}
         </>
     )
 })

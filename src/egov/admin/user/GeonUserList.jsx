@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useNavigate, useSearchParams} from "react-router-dom";
 import DynamicSearch  from "../../search/DynamicSearch";
-import GeonTable from "../../common/GeonTable"
+// import GeonTable from "../../common/GeonTable"
+import GeonCheckBoxTable from "../../common/GeonCheckBoxTable";
+import useDialog from "../../common/dialog/useDialog";
 import {DotLoader} from "../../common/loading/DotLoader";
 import EgovPaging from "../../common/EgovPaging";
 import * as EgovNet from 'context/egovFetch';
@@ -28,19 +30,26 @@ const mockData = [
 ]
 const PRIMARY_KEY = 'userId';
 
-const GeonUserList = () => {
+const List = () => {
+    // 불러온 데이터
     const [data , setData] = useState([]);
+    // 체크한 데이터
     const [selectedItems , setSelectedItems]  = useState([]); // 체크박스 데이터
+    // 페이지네이션 값..
     const [currentPage , setCurrentPage] = useState(1);
+    // URL 쿼리파라미터용
     const [searchParam , setSearchParams] = useSearchParams();
+    // 로딩 여부
+    const [loading , setLoading] = useState(false);
+    // 검색 컴포넌트 DOM 접근용
+    const searchRef = useRef();
+    // 상세페이지, 등록페이지 이동
+    const navigate = useNavigate();
     const recordCountPerPage = 5;
     const pageSize = 5;
-    const searchRef = useRef();
-    const [loading , setLoading] = useState(false);
-    const navigate = useNavigate();
-    // 컴포넌트 상단에 상수 정의
 
-
+    // 👇 다이얼로그 훅 사용
+    const { openDialog, closeDialog, DialogComponent } = useDialog();
 
     const paginationInfo = {
         currentPageNo: currentPage,
@@ -110,7 +119,16 @@ const GeonUserList = () => {
 
     // 상세 정보 ( item => 사용자ID )
     const handleRowClick = (item) => {
-        navigate("");
+        console.log(item)
+        //navigate("");
+        openDialog({
+            title : `사용자 상세정보`,
+            size: {width : 600, height: 500},
+            position: {x:150, y:100},
+            content: ""
+            //onClose: <-- 다이얼로그 닫힐 때 사용자 정의 함수 지정 가능
+            //onOpen: <-- 다이얼로그 열릴 때 사용자 정의 함수 지정 가능
+        })
     }
 
     // 전체 선택/해제 토글
@@ -197,8 +215,6 @@ const GeonUserList = () => {
         ], // 헤더 설정
         data : data, // 표출할 데이터
         dataSize : data.length, // data.length..
-        paginationInfo : paginationInfo, // 페이지네이션 정보
-        enableCheckbox : true , // 체크박스 지정
         selectedItems : selectedItems, // 체크박스 배열
         primaryKey : PRIMARY_KEY // 고유키 설정
     }
@@ -215,7 +231,7 @@ const GeonUserList = () => {
                  {loading && <DotLoader/>}
                  <h2 className="tit">사용자 관리</h2>
                  <DynamicSearch searchFields={menuConfigs["user"]} onSearch={handleSearch} ref={searchRef}/>
-                 <GeonTable option={options} handle={handlers}/>
+                 <GeonCheckBoxTable option={options} handle={handlers}/>
                  <div className="result_bottom split-buttons">
                      <div className="left-buttons">
                          <button type="button" className="btn black_btn" onClick={() => {handleDelete()}}>선택삭제</button>
@@ -226,6 +242,7 @@ const GeonUserList = () => {
                  </div>
                  <EgovPaging pagination={paginationInfo} moveToPage={(pageNum) => handleSearch(pageNum)}/>
              </div>
+             <DialogComponent/>
          </>
      )
 }
